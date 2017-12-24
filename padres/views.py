@@ -91,7 +91,9 @@ def get_delete_update_contract(request, pk):
 @api_view(['GET', 'POST'])
 def get_post_contracts(request):
     if request.method == 'GET':
-        return Response({})
+        contracts = Contract.objects.all()
+        serializer = ContractSerializer(contracts, many=True)
+        return Response(serializer.data)
 
     elif request.method == 'POST':
         return Response({})
