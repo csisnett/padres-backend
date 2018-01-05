@@ -1,15 +1,16 @@
 from rest_framework import serializers
 from .models import Person, Job, Contract, Company
 
-class PersonSerializer(serializers.ModelSerializer):
-    class Meta:
-        model  = Person
-        fields = ('name', 'birthday', 'gender', 'jobs')
 
 class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = ('name', 'initial_date', 'termination_date')
+
+class PersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model  = Person
+        fields = ('name', 'birthday', 'gender', 'jobs')
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:

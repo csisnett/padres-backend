@@ -10,6 +10,9 @@ import pdb
 #initialize the APIClient App
 client = Client()
 
+"""Person Tests"""
+
+
 class GetAllPeopleTest(TestCase):
     """ Test module for GET all people API"""
 
@@ -33,31 +36,7 @@ class GetAllPeopleTest(TestCase):
         serializer = PersonSerializer(people, many=True)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-"""
-class GetSinglePersonTest(TestCase):
-     Test module for GET single person API
 
-    def setUp(self):
-        diputado14 =  Job.objects.create(name="Diputado", initial_date="2014-07-01",
-        termination_date="2019-07-01")
-        self.zulay = Person.objects.create(name='Zulay',birthday='1951-05-12',
-        gender='female', jobs=diputado14)
-        self.pedro = Person.objects.create(name="Pedro Miguel", birthday='1962-05-11',
-        gender='male', jobs=diputado14)
-
-    def test_get_valid_single_person(self):
-        response = client.get(reverse('get_delete_update_person', kwargs={'pk': self.zulay.pk}))
-        person = Person.objects.get(pk=self.zulay.pk)
-        serializer = PersonSerializer(person)
-        print(serializer.data)
-        self.assertEqual(response.data, serializer.data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    def test_get_invalid_single_person(self):
-        response = client.get(
-            reverse('get_delete_update_person', kwargs={'pk': 30}))
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        """
 
 class GetSinglePersonTest(TestCase):
     """ Test module for GET single Person API """
@@ -80,6 +59,47 @@ class GetSinglePersonTest(TestCase):
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+
+class CreateNewPersonTest(TestCase):
+    """Test module for inserting (POST) a new Person"""
+
+    def setUp(self):
+        diputado = Job.objects.create(name='Diputado', initial_date='2019-12-20',
+         termination_date='2024-12-21')
+        empresario = Job.objects.create(name='Business man', initial_date='2019-12-01',
+        termination_date='2100-12-1')
+        self.valid_person = {
+            'name': 'Carlos',
+            'birthday': '1996-06-19',
+            'gender': 'male',
+            'jobs': diputado.pk
+        }
+
+        self.invalid_person = {
+            'name': '',
+            'birthday': '1910-04-12',
+            'gender': 'male',
+            'jobs': empresario.pk
+        }
+
+    def test_create_valid_person(self):
+        response = client.post(
+            reverse('get_post_people'),
+            data=json.dumps(self.valid_person),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+    def test_create_invalid_person(self):
+        response = client.post(
+            reverse('get_post_people'),
+            data=json.dumps(self.invalid_person),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+""" Contract Tests"""
+
+
 class GetSingleContractTest(TestCase):
 
     def setUp(self):
@@ -100,3 +120,17 @@ class GetSingleContractTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
+class GetAllContractsTest(TestCase):
+    
+    def setUp(self):
+        Odebretch = Company.objects.create(name='Odebretch')
+        self.CintaCostera = Contract.objects.create(name='Cinta Costera 3', company=Odebretch)
+
+    def test_get_all_contracts(self):
+        response = client.get(
+            reverse('get_post_contracts')
+        )
+        contracts = Contract.objects.all()
+        serializer = ContractSerializer(contracts, many=True)
+        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

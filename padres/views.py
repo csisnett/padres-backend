@@ -3,10 +3,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from padres.models import Person, Job, Contract, Company
 from padres.serializers import PersonSerializer, JobSerializer, ContractSerializer, CompanySerializer
-
+import pdb
 """
 Views for Person
 """
+
 
 @api_view(['GET', 'DELETE', 'PUT'])
 def get_delete_update_person(request, pk):
@@ -26,6 +27,7 @@ def get_delete_update_person(request, pk):
     elif request.method == 'PUT':
         return Response({})
 
+
 @api_view(['GET', 'POST'])
 def get_post_people(request):
     if request.method == 'GET':
@@ -33,8 +35,19 @@ def get_post_people(request):
         serializer = PersonSerializer(people, many=True)
         return Response(serializer.data)
     
-    elif request.method == 'POST':
-        return Response({})
+    if request.method == 'POST':
+        pdb.set_trace()
+        data = {
+            'name': request.data.get('name'),
+            'birthday': request.data.get('birthday'),
+            'gender': request.data.get('gender'),
+            'jobs': request.data.get('jobs')
+        }
+        serializer = PersonSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 """
 Views for Job
@@ -57,6 +70,7 @@ def get_delete_update_job(request, pk):
     elif request.method == 'PUT':
         return Response({})
 
+
 @api_view(['GET', 'POST'])
 def get_post_jobs(request):
     if request.method == 'GET':
@@ -69,6 +83,7 @@ def get_post_jobs(request):
 """
 Views for Contract
 """
+
 
 @api_view(['GET', 'DELETE', 'PUT'])
 def get_delete_update_contract(request, pk):
@@ -88,6 +103,7 @@ def get_delete_update_contract(request, pk):
     elif request.method == 'PUT':
         return Response({})
 
+
 @api_view(['GET', 'POST'])
 def get_post_contracts(request):
     if request.method == 'GET':
@@ -101,6 +117,7 @@ def get_post_contracts(request):
 """
 Views for Company
 """
+
 
 @api_view(['GET', 'DELETE', 'PUT'])
 def get_delete_update_company(request, pk):
@@ -118,6 +135,7 @@ def get_delete_update_company(request, pk):
     # update details of a single Company
     elif request.method == 'PUT':
         return Response({})
+
 
 @api_view(['GET', 'POST'])
 def get_post_companies(request):
