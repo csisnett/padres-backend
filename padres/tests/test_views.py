@@ -134,3 +134,32 @@ class GetAllContractsTest(TestCase):
         serializer = ContractSerializer(contracts, many=True)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+class CreateNewContractTest(TestCase):
+    """Test module for creating a new contract"""
+    def setUp(self):
+        self.oreo = Company.objects.create(name='Oreo')
+        self.valid_contract = {
+            'name': 'Muffin',
+            'company': self.oreo.pk
+        }
+        self.invalid_contract = {
+            'name': 'Pascual',
+            'company': ''
+        }
+
+    def test_create_valid_contract(self):
+        response = client.post(
+            reverse('get_post_contracts'),
+            data=json.dumps(self.valid_contract),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_invalid_contract(self):
+        response = client.post(
+            reverse('get_post_contracts'),
+            data=json.dumps(self.invalid_contract),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
