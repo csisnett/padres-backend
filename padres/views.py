@@ -36,7 +36,6 @@ def get_post_people(request):
         return Response(serializer.data)
     
     if request.method == 'POST':
-        pdb.set_trace()
         data = {
             'name': request.data.get('name'),
             'birthday': request.data.get('birthday'),
@@ -106,13 +105,23 @@ def get_delete_update_contract(request, pk):
 
 @api_view(['GET', 'POST'])
 def get_post_contracts(request):
+    #get all contracts
     if request.method == 'GET':
         contracts = Contract.objects.all()
         serializer = ContractSerializer(contracts, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
-        return Response({})
+    #create a new contract
+    if request.method == 'POST':
+        data = {
+            'name': request.data.get('name'),
+            'company': request.data.get('company')
+        }
+        serializer = ContractSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 """
 Views for Company
