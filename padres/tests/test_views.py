@@ -166,6 +166,21 @@ class CreateNewContractTest(TestCase):
 
 """ Job Tests """
 
+class GetAllJobsTest(TestCase):
+    """Test module for GET all jobs API"""
+
+    def setUp(self):
+        self.programmer = Job.objects.create(
+            name='programmer', initial_date='1999-11-30', termination_date='2001-12-05')
+    def test_get_all_jobs(self):
+        #get API response
+        response = client.get(reverse('get_post_jobs'))
+        #get data from db
+        jobs = Job.objects.all()
+        serializer = JobSerializer(jobs, many=True)
+        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
 class GetSingleJobTest(TestCase):
     "Test module for GET single job API"
 

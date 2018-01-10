@@ -74,7 +74,9 @@ def get_delete_update_job(request, pk):
 @api_view(['GET', 'POST'])
 def get_post_jobs(request):
     if request.method == 'GET':
-        return Response({})
+        jobs = Job.objects.all()
+        serializer = JobSerializer(jobs, many=True)
+        return Response(serializer.data)
 
     elif request.method == 'POST':
         return Response({})
