@@ -163,3 +163,26 @@ class CreateNewContractTest(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+""" Job Tests """
+
+class GetSingleJobTest(TestCase):
+    "Test module for GET single job API"
+
+    def setUp(self):
+        self.mecanico = Job.objects.create(
+        name='Mecanico', initial_date='1914-07-11', termination_date='1920-09-08')
+
+    def test_get_valid_single_job(self):
+        response = client.get(
+            reverse('get_delete_update_job', kwargs={'pk': self.mecanico.pk}))
+        job = Job.objects.get(pk=self.mecanico.pk)
+        serializer = JobSerializer(job)
+        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get_invalid_single_job(self):
+        response = client.get(
+            reverse('get_delete_update_job', kwargs={'pk': 25})
+        )
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

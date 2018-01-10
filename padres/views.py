@@ -61,7 +61,8 @@ def get_delete_update_job(request, pk):
 
     #get details of a single Job
     if request.method == 'GET':
-        return Response({})
+        serializer = JobSerializer(job)
+        return Response(serializer.data)
     # delete a single Job
     elif request.method == 'DELETE':
         return Response({})
