@@ -201,3 +201,33 @@ class GetSingleJobTest(TestCase):
             reverse('get_delete_update_job', kwargs={'pk': 25})
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+class CreateNewJobTest(TestCase):
+
+    def setUp(self):
+        self.valid_payload = {
+            'name': 'Mecanico',
+            'initial_date': '1010-12-31',
+            'termination_date': '1904-06-15'
+        }
+        self.invalid_payload = {
+            'name': 'Diputado',
+            'initial_date': '',
+            'termination_date': ''
+        }
+
+    def test_create_valid_job(self):
+        response = client.post(
+            reverse('get_post_jobs'),
+            data=json.dumps(self.valid_payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        
+    def test_create_invalid_job(self):
+        response = client.post(
+            reverse('get_post_jobs'),
+            data=json.dumps(self.invalid_payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

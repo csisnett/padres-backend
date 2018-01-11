@@ -78,8 +78,17 @@ def get_post_jobs(request):
         serializer = JobSerializer(jobs, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
-        return Response({})
+    if request.method == 'POST':
+        data = {
+            'name': request.data.get('name'),
+            'initial_date': request.data.get('initial_date'),
+            'termination_date': request.data.get('termination_date')
+        }
+        serializer = JobSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 """
