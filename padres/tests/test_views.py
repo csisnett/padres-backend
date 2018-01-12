@@ -97,6 +97,46 @@ class CreateNewPersonTest(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+class UpdateSinglePersonTest(TestCase):
+    """ Test module for updating an existing person record """
+
+    def setUp(self):
+        self.programmer = Job.objects.create(
+            name='programmer', initial_date='1999-11-30', termination_date='2001-12-05')
+        self.casper = Person.objects.create(
+            name='casper', birthday='1898-05-11', gender='male', jobs=self.programmer)
+        self.crispy = Person.objects.create(
+            name='Krispy', birthday='1999-12-31', gender='female', jobs=self.programmer)
+        self.mecanico = Job.objects.create(
+        name='Mecanico', initial_date='1914-07-11', termination_date='1920-09-08')
+
+        self.valid_payload = {
+            'name': 'casper',
+            'birthday': '1898-05-11',
+            'gender': 'female',
+            'jobs': self.mecanico.pk
+        }
+        self.invalid_payload = {
+            'name': '',
+            'birthday': '',
+            'gender': 'female',
+            'jobs': self.programmer.pk
+        }
+
+    def test_valid_update_person(self):
+        response = client.put(
+            reverse('get_delete_update_person', kwargs={'pk': self.casper.pk}),
+            data=json.dumps(self.valid_payload),
+            content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_invalid_update_person(self):
+        response = client.put(
+            reverse('get_delete_update_person', kwargs={'pk': self.casper.pk}),
+            data=json.dumps(self.invalid_payload),
+            content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
 """ Contract Tests"""
 
 
