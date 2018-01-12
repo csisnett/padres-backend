@@ -15,7 +15,7 @@ class PersonSerializer(serializers.ModelSerializer):
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = ('name')
+        fields = ('name',)
 
 class ContractSerializer(serializers.ModelSerializer):
     class Meta:

@@ -149,19 +149,26 @@ def get_delete_update_company(request, pk):
 
     #get details of a single Company
     if request.method == 'GET':
-        return Response({})
+        serializer = CompanySerializer(company)
+        return Response(serializer.data)
     # delete a single Company
-    elif request.method == 'DELETE':
+    if request.method == 'DELETE':
         return Response({})
     # update details of a single Company
-    elif request.method == 'PUT':
+    if request.method == 'PUT':
         return Response({})
 
 
 @api_view(['GET', 'POST'])
 def get_post_companies(request):
     if request.method == 'GET':
-        return Response({})
+        companies = Company.objects.all()
+        serializer = CompanySerializer(companies, many=True)
+        return Response(serializer.data)
 
-    elif request.method == 'POST':
-        return Response({})
+    if request.method == 'POST':
+        serializer = CompanySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -231,3 +231,67 @@ class CreateNewJobTest(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+""" Company Tests"""
+
+class GetSingleCompanyTest(TestCase):
+
+
+    def setUp(self):
+        self.apple = Company.objects.create(name='Apple Computer')
+        self.hola = Company.objects.create(name='HOLA')
+
+    def test_get_valid_single_company(self):
+        response = client.get(
+            reverse('get_delete_update_company',kwargs={'pk': self.apple.pk}))
+
+        company = Company.objects.get(pk=self.apple.pk)
+        serializer = CompanySerializer(company)
+        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get_invalid_single_company(self):
+        response = client.get(
+            reverse('get_delete_update_company',kwargs={'pk': 30}))
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+class GetAllCompaniesTest(TestCase):
+
+
+    def setUp(self):
+        self.firstcompany = Company.objects.create(name='First')
+        self.two = Company.objects.create(name='Second')
+
+    def test_get_all_companies(self):
+        response = client.get(reverse('get_post_companies'))
+        companies = Company.objects.all()
+        serializer = CompanySerializer(companies, many=True)
+        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+class CreateNewCompanyTest(TestCase):
+
+    def setUp(self):
+        self.valid_payload = {
+            'name': 'name'
+        }
+        self.invalid_payload = {
+            'name': ''
+        }
+
+    def test_create_valid_company(self):
+        response = client.post(
+            reverse('get_post_companies'),
+            data=json.dumps(self.valid_payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_invalid_company(self):
+        response = client.post(
+            reverse('get_post_companies'),
+            data=json.dumps(self.invalid_payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
