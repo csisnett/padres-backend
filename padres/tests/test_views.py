@@ -123,14 +123,14 @@ class UpdateSinglePersonTest(TestCase):
             'jobs': self.programmer.pk
         }
 
-    def test_valid_update_person(self):
+    def test_update_invalid_person(self):
         response = client.put(
             reverse('get_delete_update_person', kwargs={'pk': self.casper.pk}),
             data=json.dumps(self.valid_payload),
             content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-    def test_invalid_update_person(self):
+    def test_update_invalid_person(self):
         response = client.put(
             reverse('get_delete_update_person', kwargs={'pk': self.casper.pk}),
             data=json.dumps(self.invalid_payload),
@@ -202,6 +202,37 @@ class CreateNewContractTest(TestCase):
             data=json.dumps(self.invalid_contract),
             content_type='application/json'
         )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+class UpdateSingleContractTest(TestCase):
+    """Test module for updating a contract"""
+
+    def setUp(self):
+        self.ribasmith = Company.objects.create(
+            name='Ribasmith')
+        self.pollos = Contract.objects.create(
+            name='Ribasmith Pollos contrato', company=self.ribasmith)
+        self.valid_payload = {
+            'name': 'Contrato de Pollos',
+            'company': self.ribasmith.pk
+        }
+        self.invalid_payload = {
+            'name': 'Contrato de carretera',
+            'company': ''
+        }
+    def test_update_valid_contract(self):
+        response = client.put(
+            reverse('get_delete_update_contract', kwargs={'pk': self.pollos.pk}),
+            data=json.dumps(self.valid_payload),
+            content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        
+    def test_update_invalid_contract(self):
+        response = client.put(
+            reverse('get_delete_update_contract', kwargs={'pk': self.pollos.pk}),
+            data=json.dumps(self.invalid_payload),
+            content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 """ Job Tests """
