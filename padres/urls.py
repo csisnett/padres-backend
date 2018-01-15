@@ -3,11 +3,11 @@ from padres import views
 
 urlpatterns = [
     url(r'^api/v1/people/(?P<pk>[0-9]+)$',
-        views.get_delete_update_person,
+        views.PersonDetail.as_view(),
         name='get_delete_update_person'
         ),
     url(r'^api/v1/people/$',
-        views.get_post_people,
+        views.PersonList.as_view(),
         name='get_post_people'
         ),
 

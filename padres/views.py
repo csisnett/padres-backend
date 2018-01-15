@@ -4,11 +4,21 @@ from rest_framework import status
 from padres.models import Person, Job, Contract, Company
 from padres.serializers import PersonSerializer, JobSerializer, ContractSerializer, CompanySerializer
 import pdb
+from rest_framework import generics
 """
 Views for Person
 """
 
+class PersonList(generics.ListCreateAPIView):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
 
+
+class PersonDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
+
+    
 @api_view(['GET', 'DELETE', 'PUT'])
 def get_delete_update_person(request, pk):
     try:
@@ -51,6 +61,9 @@ def get_post_people(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
 """
 Views for Job
