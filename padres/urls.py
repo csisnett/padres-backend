@@ -12,11 +12,11 @@ urlpatterns = [
         ),
 
     url(r'^api/v1/jobs/(?P<pk>[0-9]+)$',
-        views.get_delete_update_job,
+        views.JobDetail.as_view(),
         name='get_delete_update_job'
         ),
     url(r'^api/v1/jobs/$',
-        views.get_post_jobs,
+        views.JobList.as_view(),
         name='get_post_jobs'
         ),
 

@@ -69,6 +69,17 @@ def get_post_people(request):
 Views for Job
 """
 
+class JobList(generics.ListCreateAPIView):
+    queryset = Job.objects.all()
+    serializer_class = JobSerializer
+
+
+class JobDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Job.objects.all()
+    serializer_class = JobSerializer
+
+
+
 @api_view(['GET', 'DELETE', 'PUT'])
 def get_delete_update_job(request, pk):
     try:
