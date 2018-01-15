@@ -171,7 +171,14 @@ def get_post_contracts(request):
 """
 Views for Company
 """
+class CompanyList(generics.ListCreateAPIView):
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
 
+
+class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
 
 @api_view(['GET', 'DELETE', 'PUT'])
 def get_delete_update_company(request, pk):
