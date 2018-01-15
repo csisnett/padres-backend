@@ -137,6 +137,29 @@ class UpdateSinglePersonTest(TestCase):
             content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+
+class DeleteSinglePersonTest(TestCase):
+    """Test module for deleting an existing person record"""
+
+    def setUp(self):
+        self.programmer = Job.objects.create(
+            name='programmer', initial_date='1999-11-30', termination_date='2001-12-05')
+        self.casper = Person.objects.create(
+            name='casper', birthday='1898-05-11', gender='male', jobs=self.programmer)
+        self.crispy = Person.objects.create(
+            name='Krispy', birthday='1999-12-31', gender='female', jobs=self.programmer)
+    
+    def test_valid_delete_person(self):
+        response = client.delete(
+            reverse('get_delete_update_person', kwargs={'pk': self.casper.pk}))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_invalid_delete_person(self):
+        response = client.delete(
+            reverse('get_delete_update_person', kwargs={'pk': 39}))
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
 """ Contract Tests"""
 
 
