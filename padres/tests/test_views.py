@@ -149,12 +149,12 @@ class DeleteSinglePersonTest(TestCase):
         self.crispy = Person.objects.create(
             name='Krispy', birthday='1999-12-31', gender='female', jobs=self.programmer)
     
-    def test_valid_delete_person(self):
+    def test_delete_valid_person(self):
         response = client.delete(
             reverse('get_delete_update_person', kwargs={'pk': self.casper.pk}))
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-    def test_invalid_delete_person(self):
+    def test_delete_invalid_person(self):
         response = client.delete(
             reverse('get_delete_update_person', kwargs={'pk': 39}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
@@ -258,6 +258,25 @@ class UpdateSingleContractTest(TestCase):
             content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+class DeleteSingleContractTest(TestCase):
+    """Test module for deleting an existing Person record """
+
+    def setUp(self):
+        self.ribasmith = Company.objects.create(
+            name='Ribasmith')
+        self.pollos = Contract.objects.create(
+            name='Ribasmith Pollos contrato', company=self.ribasmith)
+
+    def test_delete_valid_contract(self):
+        response = client.delete(
+            reverse('get_delete_update_contract', kwargs={'pk': self.pollos.pk}))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_delete_invalid_contract(self):
+        response = client.delete(
+            reverse('get_delete_update_contract', kwargs={'pk': 19}))
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        
 """ Job Tests """
 
 class GetAllJobsTest(TestCase):

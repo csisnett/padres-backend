@@ -138,7 +138,8 @@ def get_delete_update_contract(request, pk):
         return Response(serializer.data)
     # delete a single Contract
     elif request.method == 'DELETE':
-        return Response({})
+        contract.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
     # update details of a single Contract
     if request.method == 'PUT':
         serializer = ContractSerializer(contract, data=request.data)
