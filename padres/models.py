@@ -26,7 +26,6 @@ class Company(models.Model):
 
 class Contract(models.Model):
     name = models.CharField(max_length=100)
-    company = models.OneToOneField(Company)
 
     def get_name(self):
         return self.name
@@ -55,7 +54,7 @@ class Job(models.Model):
     promises = models.ManyToManyField(Promise)
     pay = models.IntegerField()
     benefits = models.ManyToManyField(Event, related_name='benefits')
-    institution = models.ForeignKey(Institution)
+    institution = models.ForeignKey(Institution,on_delete=models.PROTECT)
     law_events = models.ManyToManyField(Law_disorder)
     events = models.ManyToManyField(Event)
     #benefits = ...#undefined
@@ -73,7 +72,7 @@ class Person(models.Model):
     birthday = models.DateField()
     gender = models.CharField(max_length=20)
     #picture = models.ImageField()
-    jobs = models.ForeignKey(Job, related_name='jobs')
+    jobs = models.ForeignKey(Job, related_name='jobs',on_delete=models.PROTECT)
 
     def get_gender(self):
         return self.gender
