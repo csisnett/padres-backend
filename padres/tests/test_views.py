@@ -276,7 +276,7 @@ class DeleteSingleContractTest(TestCase):
         response = client.delete(
             reverse('get_delete_update_contract', kwargs={'pk': 19}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        
+
 """ Job Tests """
 
 class GetAllJobsTest(TestCase):
@@ -345,6 +345,22 @@ class CreateNewJobTest(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+class DeleteSingleJobTest(TestCase):
+
+    def setUp(self):
+        self.mecanico = Job.objects.create(
+        name='Mecanico', initial_date='1914-07-11', termination_date='1920-09-08')
+
+    def test_delete_valid_job(self):
+        response = client.delete(
+            reverse('get_delete_update_job', kwargs={'pk': self.mecanico.pk}))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_delete_invalid_job(self):
+        response = client.delete(
+            reverse('get_delete_update_job', kwargs={'pk': 104}))
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
 """ Company Tests"""
 
 class GetSingleCompanyTest(TestCase):
@@ -408,3 +424,17 @@ class CreateNewCompanyTest(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+class DeleteSingleCompanyTest(TestCase):
+    """Test module for deleting an existing company record"""
+
+    def setUp(self):
+        self.firstcompany = Company.objects.create(name='First')
+    def test_valid_delete_company(self):
+        response = client.delete(
+            reverse('get_delete_update_company', kwargs={'pk': self.firstcompany.pk}))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_invalid_delete_company(self):
+        response = client.delete(
+            reverse('get_delete_update_company', kwargs={'pk': 12}))
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
