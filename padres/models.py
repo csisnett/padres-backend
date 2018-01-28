@@ -50,15 +50,19 @@ class Job(models.Model):
     name = models.CharField(max_length=130)
     initial_date = models.DateField()
     termination_date = models.DateField()
-    #person = models.ManyToManyField('Person')
-    #actions = models.ManyToManyField(Event, related_name='actions')
-    #promises = models.ManyToManyField(Promise)
-    #pay = models.IntegerField()
-    #benefits = models.ManyToManyField(Event, related_name='benefits')
-    #transactions = models.ManyToManyField(Transaction)
-    #institution = models.ForeignKey(Institution)
-    #law_disorder = models.ManyToManyField(Law_disorder)
-    # money_wasted = models.ManyToManyField(Transaction)
+    person = models.ManyToManyField('Person')
+    actions = models.ManyToManyField(Event, related_name='actions')
+    promises = models.ManyToManyField(Promise)
+    pay = models.IntegerField()
+    benefits = models.ManyToManyField(Event, related_name='benefits')
+    institution = models.ForeignKey(Institution)
+    law_events = models.ManyToManyField(Law_disorder)
+    events = models.ManyToManyField(Event)
+    #benefits = ...#undefined
+    #wasted_money = ...
+    #law_disorder = ...
+    institution = ...
+    #wasted_money = ... models.ManyToManyField(Transaction)s
 
 class Person(models.Model):
     """
