@@ -52,7 +52,7 @@ class Job(models.Model):
     """
     name = models.CharField(max_length=130)
     person = models.ManyToManyField('Person', through='padres.Gig')
-    pay = models.IntegerField()
+    pay = models.IntegerField(default=0)
     benefits = models.ManyToManyField(Event, related_name='benefits')
     institution = models.ForeignKey(Institution,on_delete=models.PROTECT)
     events = models.ManyToManyField(Event)
