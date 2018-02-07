@@ -7,11 +7,7 @@ class Photo(models.Model):
     pass
 
 class Event(models.Model):
-    title = models.CharField(max_length=130)
-    description = models.TextField(default='Event')
-    date = models.DateField(default='0001-01-01')
-    related_events = models.ManyToManyField('padres.Event')
-    
+    pass
 
 class Scandal(models.Model):
     pass
@@ -51,18 +47,21 @@ class Job(models.Model):
     for a period of time.
     """
     name = models.CharField(max_length=130)
-    person = models.ManyToManyField('Person', through='padres.Gig')
+    initial_date = models.DateField()
+    termination_date = models.DateField()
+    person = models.ManyToManyField('Person')
+    actions = models.ManyToManyField(Event, related_name='actions')
+    promises = models.ManyToManyField(Promise)
     pay = models.IntegerField()
     benefits = models.ManyToManyField(Event, related_name='benefits')
     institution = models.ForeignKey(Institution,on_delete=models.PROTECT)
+    law_events = models.ManyToManyField(Law_disorder)
     events = models.ManyToManyField(Event)
     #benefits = ...#undefined
     #wasted_money = ...
     #law_disorder = ...
+    institution = ...
     #wasted_money = ... models.ManyToManyField(Transaction)s
-
-    def __str__(self):
-        return self.name
 
 class Person(models.Model):
     """
@@ -80,16 +79,9 @@ class Person(models.Model):
             
     def __repr__(self):
         return self.name + ' is added.'
-
-    def __str__(self):
-        return self.name
         
 
 
-class Gig(models.Model):
-    initial_date = models.DateField()
-    termination_date = models.DateField()
-    persons_role = models.TextField()
-    person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    job = models.ForeignKey(Job, on_delete=models.PROTECT)
 
+
+    
