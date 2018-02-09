@@ -22,7 +22,9 @@ class Transaction(models.Model):
     default=uuid_lib.uuid4,
     editable=False)
 
-    name = models.CharField(max_length=140)
+    name = models.CharField(max_length=140,
+    blank=True,
+    null=True)
 
 
 class Company(models.Model):
@@ -59,7 +61,7 @@ class Job(models.Model):
     person = models.ManyToManyField('Person')
     actions = models.ManyToManyField(Event, related_name='actions')
     promises = models.ManyToManyField(Promise)
-    pay = models.IntegerField()
+    pay = models.IntegerField(null=True)
     benefits = models.ManyToManyField(Event, related_name='benefits')
     institution = models.ForeignKey(Institution,on_delete=models.PROTECT)
     law_events = models.ManyToManyField(Law_disorder)
