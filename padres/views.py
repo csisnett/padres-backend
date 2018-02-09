@@ -1,8 +1,8 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from padres.models import Person, Job, Contract, Company
-from padres.serializers import PersonSerializer, JobSerializer, ContractSerializer, CompanySerializer
+from padres.models import Person, Job, Contract, Company, Transaction
+from padres.serializers import PersonSerializer, JobSerializer, ContractSerializer, CompanySerializer, TransactionSerializer
 import pdb
 from rest_framework import generics
 """
@@ -93,3 +93,17 @@ class CompanyList(generics.ListCreateAPIView):
 class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
+
+"""
+Views for Transaction
+"""
+
+class TransactionList(generics.ListCreateAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+    lookup_field = 'uuid'
+
+class TransactionDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+    lookup_field = 'uuid'

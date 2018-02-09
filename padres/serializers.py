@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Person, Job, Contract, Company
+from .models import Person, Job, Contract, Company, Transaction
 
 
 class JobSerializer(serializers.ModelSerializer):
@@ -21,3 +21,9 @@ class ContractSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contract
         fields = ('name', 'company')
+
+
+class TransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transaction
+        fields = ('name', 'uuid')

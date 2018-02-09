@@ -35,5 +35,14 @@ urlpatterns = [
     url(r'^api/v1/contracts/$',
         views.get_post_contracts,
         name='get_post_contracts'
+        ),
+    url(r'api/v1/transactions/(?P<uuid>[-\w]+)/$',
+        views.TransactionDetail.as_view(),
+        name='get_delete_update_transaction'
+        ),
+    url(r'api/v1/transactions/$',
+        views.TransactionList.as_view(),
+        name='get_post_transactions'
         )
+    
 ]

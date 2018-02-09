@@ -39,12 +39,6 @@ class Contract(models.Model):
     def get_name(self):
         return self.name
 
-    def get_company(self):
-        return self.company
-
-    def get_company_name(self):
-        return self.company.get_name()
-
 class Law_disorder(models.Model):
     pass
 
