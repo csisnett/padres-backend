@@ -1,4 +1,5 @@
 from django.db import models
+import uuid as uuid_lib
 
 class Institution(models.Model):
     pass
@@ -16,7 +17,13 @@ class Promise(models.Model):
     pass
 
 class Transaction(models.Model):
-    pass
+    uuid = models.UUIDField(
+    db_index=True,
+    default=uuid_lib.uuid4,
+    editable=False)
+
+    name = models.CharField(max_length=140)
+
 
 class Company(models.Model):
     name = models.CharField(max_length=170)
