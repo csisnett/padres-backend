@@ -29,15 +29,27 @@ class Transaction(models.Model):
 
 class Company(models.Model):
     name = models.CharField(max_length=170)
+    uuid = models.UUIDField(
+    db_index=True,
+    default=uuid_lib.uuid4,
+    editable=False)
 
     def get_name(self):
         return self.name
+    def get_uuid(self):
+        return self.uuid
 
 class Contract(models.Model):
     name = models.CharField(max_length=100)
+    uuid = models.UUIDField(
+    db_index=True,
+    default=uuid_lib.uuid4,
+    editable=False)
 
     def get_name(self):
         return self.name
+    def get_uuid(self):
+        return self.uuid
 
 class Law_disorder(models.Model):
     pass
@@ -76,9 +88,16 @@ class Person(models.Model):
     gender = models.CharField(max_length=20)
     #picture = models.ImageField()
     jobs = models.ForeignKey(Job, related_name='jobs',on_delete=models.PROTECT)
+    uuid = models.UUIDField(
+    db_index=True,
+    default=uuid_lib.uuid4,
+    editable=False)
 
     def get_gender(self):
         return self.gender
+
+    def get_uuid(self):
+        return self.uuid
             
     def __repr__(self):
         return self.name + ' is added.'
