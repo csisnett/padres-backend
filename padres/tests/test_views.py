@@ -2,9 +2,9 @@ import json
 from rest_framework import status
 from django.test import TestCase, Client
 from django.urls import reverse
-from padres.models import Person, Job, Contract, Company
+from padres.models import Person, Job, Contract, Company, Transaction
 from padres.serializers import (PersonSerializer, JobSerializer,
- CompanySerializer, ContractSerializer)
+ CompanySerializer, ContractSerializer, TransactionSerializer)
 import pdb
 
 #initialize the APIClient App
@@ -161,7 +161,7 @@ class DeleteSinglePersonTest(TestCase):
 
 
 """ Contract Tests"""
-
+"""
 
 class GetSingleContractTest(TestCase):
 
@@ -199,7 +199,8 @@ class GetAllContractsTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 class CreateNewContractTest(TestCase):
-    """Test module for creating a new contract"""
+    Test module for creating a new contract
+
     def setUp(self):
         self.oreo = Company.objects.create(name='Oreo')
         self.valid_contract = {
@@ -228,7 +229,7 @@ class CreateNewContractTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 class UpdateSingleContractTest(TestCase):
-    """Test module for updating a contract"""
+    Test module for updating a contract
 
     def setUp(self):
         self.ribasmith = Company.objects.create(
@@ -259,7 +260,7 @@ class UpdateSingleContractTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 class DeleteSingleContractTest(TestCase):
-    """Test module for deleting an existing Person record """
+    Test module for deleting an existing Person record
 
     def setUp(self):
         self.ribasmith = Company.objects.create(
@@ -276,6 +277,8 @@ class DeleteSingleContractTest(TestCase):
         response = client.delete(
             reverse('get_delete_update_contract', kwargs={'pk': 19}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+"""
 
 """ Job Tests """
 
@@ -389,7 +392,7 @@ class GetAllCompaniesTest(TestCase):
 
     def setUp(self):
         self.firstcompany = Company.objects.create(name='First')
-        self.two = Company.objects.create(name='Second')
+        self.two = Company.objects.create(name='Secónd')
 
     def test_get_all_companies(self):
         response = client.get(reverse('get_post_companies'))
@@ -438,3 +441,29 @@ class DeleteSingleCompanyTest(TestCase):
         response = client.delete(
             reverse('get_delete_update_company', kwargs={'pk': 12}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+class GetSingleTransactionTest(TestCase):
+    """ Test module for inserting a contract record"""
+
+    def setUp(self):
+        self.t1 = Transaction.objects.create(name='Primera Transaccion')
+
+    def test_get_valid_single_transaction(self):
+        response = client.get(
+            reverse('get_delete_update_transaction',
+            kwargs={'uuid': self.t1.uuid})
+        )
+        transaction = Transaction.objects.get(uuid=self.t1.uuid)
+        serializer = TransactionSerializer(transaction)
+        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_invalid_single_transaction(self):
+        response = client.get(
+            reverse('get_delete_update_transaction',
+            kwargs={'uuid': "89131-238923-234234-234"})
+        )
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND) 
+
+
+    #def test_valid_transaction
