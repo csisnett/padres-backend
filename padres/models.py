@@ -22,6 +22,12 @@ class Transaction(models.Model):
     default=uuid_lib.uuid4,
     editable=False)
 
+    def get_name(self):
+        return self.name
+
+    def get_uuid(self):
+        return self.uuid
+
     name = models.CharField(max_length=140,
     blank=True,
     null=True)
@@ -36,6 +42,7 @@ class Company(models.Model):
 
     def get_name(self):
         return self.name
+
     def get_uuid(self):
         return self.uuid
 
@@ -48,6 +55,7 @@ class Contract(models.Model):
 
     def get_name(self):
         return self.name
+
     def get_uuid(self):
         return self.uuid
 
