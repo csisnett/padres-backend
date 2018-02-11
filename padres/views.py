@@ -5,6 +5,7 @@ from padres.models import Person, Job, Contract, Company, Transaction
 from padres.serializers import PersonSerializer, JobSerializer, ContractSerializer, CompanySerializer, TransactionSerializer
 import pdb
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 """
 Views for Person
 """
@@ -12,12 +13,13 @@ Views for Person
 class PersonList(generics.ListCreateAPIView):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
+    
 
 
 class PersonDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
-
+    permission_classes = (IsAuthenticated, )
 
 """
 Views for Job
@@ -107,3 +109,9 @@ class TransactionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
     lookup_field = 'uuid'
+
+"""
+Old views for Contracts
+
+
+"""
