@@ -1,8 +1,8 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from padres.models import Person, Job, Contract, Company, Transaction
-from padres.serializers import PersonSerializer, JobSerializer, ContractSerializer, CompanySerializer, TransactionSerializer
+from padres.models import Person, Job, Contract, Company, Transaction, Promise
+from padres.serializers import PersonSerializer, JobSerializer, ContractSerializer, CompanySerializer, PromiseSerializer, TransactionSerializer
 import pdb
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated

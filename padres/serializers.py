@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Person, Job, Contract, Company, Transaction
+from .models import Person, Job, Contract, Company, Transaction, Promise
 
 
 class JobSerializer(serializers.ModelSerializer):

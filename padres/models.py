@@ -14,7 +14,7 @@ class Scandal(models.Model):
     pass
 
 class Promise(models.Model):
-    person = ManyToManyField('Person')
+    person = models.ManyToManyField('Person')
     name = models.CharField(max_length=140, blank=True, null=True)
     uuid = models.UUIDField(
     db_index=True,
