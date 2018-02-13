@@ -119,7 +119,7 @@ class PromiseList(generics.ListCreateAPIView):
     serializer_class = PromiseSerializer
     lookup_field = 'uuid'
 
-class PromiseDetail(generics.ListCreateAPIView):
+class PromiseDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Promise.objects.all()
     serializer_class = PromiseSerializer
     lookup_field = 'uuid'
