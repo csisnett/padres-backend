@@ -27,3 +27,9 @@ class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = ('name', 'uuid')
+
+class PromiseSerializer(serializers.ModelSerializer):
+    person = PersonSerializer(read_only=True, many=True)
+    class Meta:
+        model = Promise
+        fields = ('name', 'uuid')
