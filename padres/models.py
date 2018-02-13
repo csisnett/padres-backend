@@ -16,6 +16,10 @@ class Scandal(models.Model):
 class Promise(models.Model):
     person = ManyToManyField('Person')
     name = models.CharField(max_length=140, blank=True, null=True)
+    uuid = models.UUIDField(
+    db_index=True,
+    default=uuid_lib.uuid4,
+    editable=False)
 
 class Transaction(models.Model):
     uuid = models.UUIDField(
