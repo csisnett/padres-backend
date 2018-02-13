@@ -29,7 +29,11 @@ class TransactionSerializer(serializers.ModelSerializer):
         fields = ('name', 'uuid')
 
 class PromiseSerializer(serializers.ModelSerializer):
-    person = PersonSerializer(read_only=True, many=True)
+    person = serializers.HyperlinkedRelatedField(
+        many=True,
+        view_name='get_delete_update_person',
+        queryset=Person.objects.all()
+    )
     class Meta:
         model = Promise
-        fields = ('name', 'uuid')
+        fields = ('name', 'uuid', 'person')
