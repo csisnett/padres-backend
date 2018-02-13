@@ -14,7 +14,8 @@ class Scandal(models.Model):
     pass
 
 class Promise(models.Model):
-    pass
+    person = ManyToManyField('Person')
+    name = models.CharField(max_length=140, blank=True, null=True)
 
 class Transaction(models.Model):
     uuid = models.UUIDField(
@@ -22,15 +23,13 @@ class Transaction(models.Model):
     default=uuid_lib.uuid4,
     editable=False)
 
+    name = models.CharField(max_length=140, blank=True, null=True)
+
     def get_name(self):
         return self.name
 
     def get_uuid(self):
         return self.uuid
-
-    name = models.CharField(max_length=140,
-    blank=True,
-    null=True)
 
 
 class Company(models.Model):
