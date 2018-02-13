@@ -111,6 +111,21 @@ class TransactionDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'uuid'
 
 """
+Views for Promise
+"""
+
+class PromiseList(generics.ListCreateAPIView):
+    queryset = Promise.objects.all()
+    serializer_class = PromiseSerializer
+    lookup_field = 'uuid'
+
+class PromiseDetail(generics.ListCreateAPIView):
+    queryset = Promise.objects.all()
+    serializer_class = PromiseSerializer
+    lookup_field = 'uuid'
+
+
+"""
 Old views for Contracts
 
 

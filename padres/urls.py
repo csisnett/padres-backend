@@ -43,6 +43,14 @@ urlpatterns = [
     url(r'api/v1/transactions/$',
         views.TransactionList.as_view(),
         name='get_post_transactions'
+        ),
+    url(r'api/v1/promises/(?P<uuid>[-\w]+)/$',
+        views.PromiseDetail.as_view(),
+        name='get_delete_update_promises'
+        ),
+    url(r'api/v1/promises/$',
+        views.PromiseList.as_view(),
+        name='get_post_promises'
         )
     
 ]
