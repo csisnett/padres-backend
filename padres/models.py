@@ -8,14 +8,21 @@ class Photo(models.Model):
     pass
 
 class Event(models.Model):
-    pass
+    title = models.CharField(max_length=140, blank=True, null=True)
+    description = models.TextField()
+    date = models.DateField()
+    uuid = models.UUIDField(
+    db_index=True,
+    default=uuid_lib.uuid4,
+    editable=False)
+
 
 class Scandal(models.Model):
     pass
 
 class Promise(models.Model):
     person = models.ManyToManyField('Person')
-    name = models.CharField(max_length=140, blank=True, null=True)
+    title = models.CharField(max_length=140, blank=True, null=True)
     uuid = models.UUIDField(
     db_index=True,
     default=uuid_lib.uuid4,
@@ -27,40 +34,22 @@ class Transaction(models.Model):
     default=uuid_lib.uuid4,
     editable=False)
 
-    name = models.CharField(max_length=140, blank=True, null=True)
-
-    def get_name(self):
-        return self.name
-
-    def get_uuid(self):
-        return self.uuid
-
+    title = models.CharField(max_length=140, blank=True, null=True)
 
 class Company(models.Model):
-    name = models.CharField(max_length=170)
+    title = models.CharField(max_length=130)
     uuid = models.UUIDField(
     db_index=True,
     default=uuid_lib.uuid4,
     editable=False)
-
-    def get_name(self):
-        return self.name
-
-    def get_uuid(self):
-        return self.uuid
 
 class Contract(models.Model):
-    name = models.CharField(max_length=100)
+    title = models.CharField(max_length=140)
     uuid = models.UUIDField(
     db_index=True,
     default=uuid_lib.uuid4,
     editable=False)
 
-    def get_name(self):
-        return self.name
-
-    def get_uuid(self):
-        return self.uuid
 
 class Law_disorder(models.Model):
     pass
@@ -86,7 +75,7 @@ class Job(models.Model):
     #benefits = ...#undefined
     #wasted_money = ...
     #law_disorder = ...
-    institution = ...
+    #institution = ...
     #wasted_money = ... models.ManyToManyField(Transaction)s
 
 class Person(models.Model):
@@ -104,17 +93,39 @@ class Person(models.Model):
     default=uuid_lib.uuid4,
     editable=False)
 
-    def get_gender(self):
-        return self.gender
-
-    def get_uuid(self):
-        return self.uuid
-            
     def __repr__(self):
         return self.name + ' is added.'
         
+class Legal_Case(models.Model):
+    """
+    Legal Case Model
+    Defines the attributes and relations of a legal case
+
+    case is  Legal_Case(String, String ... Persons' UUID, Event's UUID)
+
+    interp. a Legal Case with a UUID, title, description, many-to-many to Person,
+    and many-to-many to Event relationships
+
+    example:
+    case-1 = Legal_Case(
+        title='Tonosi',
+        description='Awful',
+        Person=UUID, UUID,
+        Events=UUID, UUID,
+    )
+
+    """
+    uuid = models.UUIDField(
+    db_index=True,
+    default=uuid_lib.uuid4,
+    editable=False)
+
+    title = models.CharField(max_length=140)
+    description = models.TextField()
+    person = models.ManyToManyField(Person)
+    Event = models.ManyToManyField(Event)
 
 
 
 
-    
+
