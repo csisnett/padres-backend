@@ -27,6 +27,7 @@ class Promise(models.Model):
     db_index=True,
     default=uuid_lib.uuid4,
     editable=False)
+    description = models.TextField()
 
 class Transaction(models.Model):
     uuid = models.UUIDField(
@@ -35,6 +36,7 @@ class Transaction(models.Model):
     editable=False)
 
     title = models.CharField(max_length=140, blank=True, null=True)
+    description = models.TextField()
 
 class Company(models.Model):
     title = models.CharField(max_length=130)
@@ -42,6 +44,7 @@ class Company(models.Model):
     db_index=True,
     default=uuid_lib.uuid4,
     editable=False)
+    description = models.TextField()
 
 class Contract(models.Model):
     title = models.CharField(max_length=140)
@@ -49,6 +52,8 @@ class Contract(models.Model):
     db_index=True,
     default=uuid_lib.uuid4,
     editable=False)
+
+    description = models.TextField()
 
 
 class Law_disorder(models.Model):
@@ -66,13 +71,12 @@ class Job(models.Model):
     termination_date = models.DateField()
     person = models.ManyToManyField('Person')
     actions = models.ManyToManyField(Event, related_name='actions')
-    promises = models.ManyToManyField(Promise)
     pay = models.IntegerField(null=True)
-    benefits = models.ManyToManyField(Event, related_name='benefits')
-    institution = models.ForeignKey(Institution,on_delete=models.PROTECT)
+    #benefits = Insert
     law_events = models.ManyToManyField(Law_disorder)
     events = models.ManyToManyField(Event)
-    #benefits = ...#undefined
+    description = models.TextField()
+
     #wasted_money = ...
     #law_disorder = ...
     #institution = ...
@@ -83,7 +87,7 @@ class Person(models.Model):
     Person Model
     Defines the attributes of a person
     """
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=140)
     birthday = models.DateField()
     gender = models.CharField(max_length=20)
     #picture = models.ImageField()
@@ -96,14 +100,14 @@ class Person(models.Model):
     def __repr__(self):
         return self.name + ' is added.'
         
-class Legal_Case(models.Model):
+class LegalCase(models.Model):
     """
     Legal Case Model
     Defines the attributes and relations of a legal case
 
     case is  Legal_Case(String, String ... Persons' UUID, Event's UUID)
 
-    interp. a Legal Case with a UUID, title, description, many-to-many to Person,
+    interpretation: a Legal Case with a UUID, title, description, many-to-many to Person,
     and many-to-many to Event relationships
 
     example:
@@ -125,7 +129,25 @@ class Legal_Case(models.Model):
     person = models.ManyToManyField(Person)
     Event = models.ManyToManyField(Event)
 
+class CongressJob(models.Model):
+    """
+    Model for the job of being a congress man/woman.
+    Defines the attributes, relations and methods of work in congress
+
+    a congress job is CongressJob()
+    """
+
+    title = models.CharField(max_length=140)
+
+    uuid = models.UUIDField(
+    db_index=True,
+    default=uuid_lib.uuid4,
+    editable=False)
+
+    votes = models.ManyToManyField(Bill)
 
 
+class Bill(models.Model):
+    pass
 
-
+    
