@@ -44,9 +44,9 @@ class PersonTest(TestCase):
         person_pedro = Person.objects.get(name='Pedro Miguel')
 
         self.assertEqual(
-            person_zulay.get_gender(), "female")
+            person_zulay.gender, "female")
         self.assertEqual(
-            person_pedro.get_gender(), "male")
+            person_pedro.gender, "male")
 
 
 class TransactionTest(TestCase):
@@ -56,4 +56,4 @@ class TransactionTest(TestCase):
 
     def test_contract_name(self):
         c1 = Contract.objects.get(name='numero 1')
-        self.assertEqual(c1.get_name(), "numero 1")
+        self.assertEqual(c1.name, "numero 1")
