@@ -1,41 +1,82 @@
 from djmoney.models.fields import MoneyField
 from django.db import models
+from utils.mixins import UUIDable, Descriptionable
 
-class MonetaryTransaction(TransactionMixin):
+
+
+"""
+class Transactionable(models.Model):
     
-    amount = MoneyField(decimal_places=2, default_currency='USD') 
+    Transaction Mixin 
+    Defines the attributes and relations of a Transaction
+    Transactions inherit from TransactionMixin
 
-class TransactionMixin(models.Model):
-    uuid = models.UUIDField(
-    db_index=True,
-    default=uuid_lib.uuid4,
-    editable=False)
+    transaction is  inheritedTransaction(TransactionMixin, Basemodel)
 
-    title = models.CharField(max_length=140, blank=True, null=True)
-    description = models.TextField()
-    sender = models.ForeignKey(Account)
-    receiver = models.ForeignKey(Account)
+    interpretation: a transaction with a sender and a receiver.
+
+
+    example:
+    transaction = transaction(
+        title='Pago de contrato de IDAAN',
+        description='Awful',
+        buyer=UUID, UUID,
+        seller=UUID, UUID,
+    )
+    
+    sender = models.ForeignKey('Account', on_delete='')
+    receiver = models.ForeignKey('Account')
 
     class Meta:
         abstract = True
 
-class Company(models.Model):
-    title = models.CharField(max_length=130)
-    uuid = models.UUIDField(
-    db_index=True,
-    default=uuid_lib.uuid4,
-    editable=False)
-    description = models.TextField()
-    owners = models.ManyToManyField('padres.Person')
 
-class Contract(models.Model):
+class MonetaryTransaction(Transactionable, models.Model):
+    
+    amount_paid = MoneyField(decimal_places=2, default_currency='USD')
+
+    object_sold = models.ManyToManyField('Thing')
+
+"""
+
+class Ownable(models.Model):
+    """ Describes any thing that can be owned"""
+
+    owners = models.ManyToManyField('Owner')
+    
+    class Meta:
+        abstract = True
+
+class Company(Ownable, UUIDable, Descriptionable, models.Model):
+    name = models.CharField(max_length=130)
+    possessions = models.OneToOneField('Owner', on_delete='PROTECT')
+
+    app_label = 'transactions'
+
+class Contract(UUIDable, Descriptionable, models.Model):
     title = models.CharField(max_length=140)
-    uuid = models.UUIDField(
-    db_index=True,
-    default=uuid_lib.uuid4,
-    editable=False)
+    approved_by = models.ManyToManyField('padres.Person')
+    companies = models.ManyToManyField('Company')
 
-    description = models.TextField()
+class BankAccount(Ownable, models.Model):
 
-class Account(models.Model):
-    ownership = ...
+    balance = MoneyField(max_digits=19, decimal_places=2)
+    transactions = models.ManyToManyField('BankAccount')
+
+    def new_balance(self, amount, sender):
+
+        return self.balance + amount
+
+
+    def currencydecimal(self):
+        return self.balance.currency
+
+
+class Thing(Ownable, UUIDable, Descriptionable, models.Model):
+    name = models.CharField(max_length=110)
+
+class Owner(UUIDable, models.Model):
+    pass
+
+
+
