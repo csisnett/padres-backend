@@ -1,9 +1,6 @@
 from django.db import models
 from utils.mixins import UUIDable, Descriptionable
 
-class Votable(models.Model):
-    pass
-
 class Bill(UUIDable, Descriptionable, models.Model):
     """
     Model for a bill or anything that congress or people can vote on.
@@ -18,23 +15,22 @@ class Bill(UUIDable, Descriptionable, models.Model):
     short_description = models.CharField(max_length=300)
     content = models.TextField()
     status = models.CharField(max_length=40)
-    #state = 
+    
 
-class PersonBill(models.Model):
+class PersonBill(UUIDable, models.Model):
     """
     intermediary table/model between a Person and a Bill
 
     Defines the attributes, and methods of the relationship.
     """
     VOTE_CHOICES = (
-        ('b', "Bill hasn't come to vote"),
-        ('y', 'yes'),
-        ('n', 'no'),
+        ('y', 'vote of approval'),
+        ('n', 'rejection vote'),
         ('a', 'absent from session'),
         ('r', 'refused to vote'),
     )
     vote = models.CharField(max_length=1, choices=VOTE_CHOICES)
-    reason_for_vote = models.TextField()
+    reason = models.TextField()
 
 class LegalCase(UUIDable, Descriptionable, models.Model):
     """
@@ -58,4 +54,5 @@ class LegalCase(UUIDable, Descriptionable, models.Model):
 
     title = models.CharField(max_length=140)
     people = models.ManyToManyField('padres.Person')
-    Event = models.ManyToManyField('pades.Event')
+    event = models.ManyToManyField('pades.Event')
+    short_description = models.CharField(max_length=300)

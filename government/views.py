@@ -1,4 +1,5 @@
-from government.serializers import Bill, PersonBill, LegalCase
+from government.serializers import BillSerializer, PersonBillSerializer, LegalCaseSerializer
+from government.models import Bill, PersonBill, LegalCase
 from rest_framework import generics
 
 """

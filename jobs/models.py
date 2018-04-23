@@ -29,7 +29,7 @@ class CongressJob(Jobable, models.Model):
     pass
 
 class PrivateJob(Jobable, models.Model):
-    company = models.ForeignKey('transactions.Company')
+    company = models.ForeignKey('transactions.Company', on_delete='PROTECT')
 
 class Institution(Descriptionable, UUIDable, models.Model):
     name = models.CharField(max_length=130)
