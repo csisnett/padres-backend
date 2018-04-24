@@ -1,5 +1,6 @@
 
-from jobs.serializers import GovernmentJobSerializer, CongressJobSerializer, PrivateJobSerializer, Institution
+from jobs.models import CongressJob, GovernmentJob, PrivateJob, Institution
+from jobs.serializers import GovernmentJobSerializer, CongressJobSerializer, PrivateJobSerializer, InstitutionSerializer
 from rest_framework import generics
 
 

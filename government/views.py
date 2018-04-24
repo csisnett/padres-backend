@@ -1,6 +1,7 @@
 from government.serializers import BillSerializer, PersonBillSerializer, LegalCaseSerializer
 from government.models import Bill, PersonBill, LegalCase
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 """
 Views for Bill
@@ -16,7 +17,6 @@ class BillList(generics.ListCreateAPIView):
 class BillDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Bill.objects.all()
     serializer_class = BillSerializer
-    permission_classes = (IsAuthenticated, )
     lookup_field = 'uuid'
 
 

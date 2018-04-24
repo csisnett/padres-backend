@@ -31,6 +31,8 @@ class PersonBill(UUIDable, models.Model):
     )
     vote = models.CharField(max_length=1, choices=VOTE_CHOICES)
     reason = models.TextField()
+    person = models.ForeignKey('padres.Person', on_delete='CASCADE')
+    bill = models.ForeignKey(Bill, on_delete='CASCADE')
 
 class LegalCase(UUIDable, Descriptionable, models.Model):
     """
@@ -54,5 +56,5 @@ class LegalCase(UUIDable, Descriptionable, models.Model):
 
     title = models.CharField(max_length=140)
     people = models.ManyToManyField('padres.Person')
-    event = models.ManyToManyField('pades.Event')
+    event = models.ManyToManyField('padres.Event')
     short_description = models.CharField(max_length=300)

@@ -49,7 +49,7 @@ class Ownable(models.Model):
 
 class Company(Ownable, UUIDable, Descriptionable, models.Model):
     name = models.CharField(max_length=130)
-    possessions = models.OneToOneField('Owner', on_delete='PROTECT')
+    possessions = models.OneToOneField('Owner', on_delete='PROTECT', related_name='companies')
 
     app_label = 'transactions'
 
