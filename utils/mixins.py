@@ -2,7 +2,7 @@ from django.db import models
 import uuid as uuid_lib
 
 class Descriptionable(models.Model):
-    long_description = models.TextField()
+    long_description = models.TextField(blank=True)
 
     class Meta:
         abstract = True
