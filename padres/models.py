@@ -19,7 +19,7 @@ class Event(Descriptionable, UUIDable, models.Model):
 
 class Scandal(UUIDable, Descriptionable, models.Model):
     events = models.ManyToManyField('Event')
-    short_description= models.CharField(max_length=140)
+    short_description= models.CharField(max_length=140, blank=True)
 
 
 class Promise(Descriptionable, UUIDable, models.Model):
@@ -36,4 +36,4 @@ class Person(Descriptionable, UUIDable, Genderable, models.Model):
     #picture = models.ImageField()
     #jobs = models.ForeignKey(Job, related_name='jobs',on_delete=models.PROTECT)
     owner = models.OneToOneField('transactions.Owner', on_delete='PROTECT', blank=True, null=True)
-    short_description = models.CharField(max_length=140)
+    short_description = models.CharField(max_length=140, blank=True)
