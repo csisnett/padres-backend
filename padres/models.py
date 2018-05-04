@@ -24,7 +24,7 @@ class Scandal(UUIDable, Descriptionable, models.Model):
 
 class Promise(Descriptionable, UUIDable, models.Model):
     people = models.ManyToManyField('Person')
-    title = models.CharField(max_length=140, blank=True, null=True)
+    title = models.CharField(max_length=140, blank=False, null=True)
 
 class Person(Descriptionable, UUIDable, Genderable, models.Model):
     """
@@ -35,5 +35,5 @@ class Person(Descriptionable, UUIDable, Genderable, models.Model):
     birthday = models.DateField()
     #picture = models.ImageField()
     #jobs = models.ForeignKey(Job, related_name='jobs',on_delete=models.PROTECT)
-    owner = models.OneToOneField('transactions.Owner', on_delete='PROTECT')
+    owner = models.OneToOneField('transactions.Owner', on_delete='PROTECT', blank=True, null=True)
     short_description = models.CharField(max_length=140)
