@@ -66,7 +66,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='event',
             name='date',
-            field=models.DateField(default='0000-00-00'),
+            field=models.DateField(default='0001-01-01'),
         ),
         migrations.AddField(
             model_name='event',
