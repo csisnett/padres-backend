@@ -39,6 +39,7 @@ class MonetaryTransaction(Transactionable, models.Model):
 
 """
 
+
 class Ownable(models.Model):
     """ Describes any thing that can be owned"""
 
@@ -49,31 +50,28 @@ class Ownable(models.Model):
 
 class Company(Ownable, UUIDable, Descriptionable, models.Model):
     name = models.CharField(max_length=130)
-    possessions = models.OneToOneField('Owner', on_delete='PROTECT', related_name='companies')
+    stockholders = models.OneToOneField('Owner', on_delete='PROTECT', related_name='companies')
 
-    app_label = 'transactions'
+
 
 class Contract(UUIDable, Descriptionable, models.Model):
     title = models.CharField(max_length=140)
-    approved_by = models.ManyToManyField('padres.Person')
+    supported_by = models.ManyToManyField('padres.Person', related_name='supported_contracts')
+    signed_by = models.ManyToManyField('padres.Person', related_name='signed_contracts')
     companies = models.ManyToManyField('Company')
 
-class BankAccount(Ownable, models.Model):
+class BankAccount(UUIDable, Ownable, models.Model):
 
     balance = MoneyField(max_digits=19, decimal_places=2)
     transactions = models.ManyToManyField('BankAccount')
 
-    def new_balance(self, amount, sender):
-
-        return self.balance + amount
-
-
-    def currencydecimal(self):
-        return self.balance.currency
 
 
 class Thing(Ownable, UUIDable, Descriptionable, models.Model):
     name = models.CharField(max_length=110)
+    value = MoneyField(max_digits=19, decimal_places=2)
+
+#for alternatives to generic relations go to https://lukeplant.me.uk/blog/posts/avoid-django-genericforeignkey/
 
 class Owner(UUIDable, models.Model):
     pass
