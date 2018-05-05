@@ -3,7 +3,6 @@ from django.db import models
 from utils.mixins import UUIDable, Descriptionable
 
 
-
 """
 class Transactionable(models.Model):
     
@@ -75,6 +74,3 @@ class Thing(Ownable, UUIDable, Descriptionable, models.Model):
 
 class Owner(UUIDable, models.Model):
     pass
-
-
-

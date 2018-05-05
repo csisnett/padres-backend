@@ -14,7 +14,7 @@ class Genderable(models.Model):
 
 class Event(Descriptionable, UUIDable, models.Model):
     title = models.CharField(max_length=140, blank=True, null=True)
-    date = models.DateField(default='0000-00-00')
+    date = models.DateField(default='0001-01-01')
     people = models.ManyToManyField('Person')
 
 class Scandal(UUIDable, Descriptionable, models.Model):
