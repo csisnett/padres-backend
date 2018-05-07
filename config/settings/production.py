@@ -1,5 +1,5 @@
 from .base import *
-from .settings_secret import *
+from .settings_secret_prod import *
 
 DEBUG = False
 
