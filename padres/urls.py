@@ -2,11 +2,11 @@ from django.conf.urls import url
 from padres import views
 
 urlpatterns = [
-    url(r'^api/v1/people/(?P<pk>[0-9]+)$',
+    url(r'people/(?P<pk>[0-9]+)$',
         views.PersonDetail.as_view(),
         name='get_delete_update_person'
         ),
-    url(r'^api/v1/people/$',
+    url(r'people/$',
         views.PersonList.as_view(),
         name='get_post_people'
         ),

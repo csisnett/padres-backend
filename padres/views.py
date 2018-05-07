@@ -12,13 +12,13 @@ Views for Person
 class PersonList(generics.ListCreateAPIView):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
-    
+    lookup_field = 'uuid'
 
 
 class PersonDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
-    permission_classes = (IsAuthenticated, )
+    lookup_field = 'uuid'
 
 
 """
