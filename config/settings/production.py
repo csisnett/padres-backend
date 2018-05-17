@@ -3,7 +3,7 @@ from .settings_secret_prod import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['web']
 
 REST_FRAMEWORK = {
     
