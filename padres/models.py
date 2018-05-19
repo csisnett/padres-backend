@@ -4,7 +4,7 @@ from utils.mixins import UUIDable, Descriptionable
 class Genderable(models.Model):
     GENDER_CHOICES = (
     ('M', "Hombre"),
-    ('F', 'Female'),
+    ('F', 'Mujer'),
     )
     gender = models.CharField(max_length=3, choices=GENDER_CHOICES)
 
@@ -14,7 +14,7 @@ class Genderable(models.Model):
 
 class Event(Descriptionable, UUIDable, models.Model):
     title = models.CharField(max_length=140, blank=True, null=True)
-    date = models.DateField(default='0001-01-01')
+    date = models.DateField(default='0001-01-01', blank=True)
     people = models.ManyToManyField('Person')
 
 class Scandal(UUIDable, Descriptionable, models.Model):
@@ -32,7 +32,7 @@ class Person(Descriptionable, UUIDable, Genderable, models.Model):
     Defines the attributes of a person
     """
     name = models.CharField(max_length=140)
-    birthday = models.DateField()
+    birthday = models.DateField(blank=True)
     #picture = models.ImageField()
     #jobs = models.ForeignKey(Job, related_name='jobs',on_delete=models.PROTECT)
     owner = models.OneToOneField('transactions.Owner', on_delete='PROTECT', blank=True, null=True)
