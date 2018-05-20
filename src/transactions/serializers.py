@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from transactions.models import Company, BankAccount, Thing, Owner, Contract
+from transactions.models import Company, BankAccount, Thing, Owner, Contract, Payment
 
 
 
@@ -23,3 +23,8 @@ class ThingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Thing
         fields = ('name', 'owners', 'long_description', 'uuid')
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = ('sender', 'receiver', 'amount', 'authorized_by', 'event', 'uuid')

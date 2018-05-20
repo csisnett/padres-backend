@@ -1,6 +1,6 @@
 from transactions.serializers import (CompanySerializer,
  ContractSerializer, BankAccountSerializer, ThingSerializer)
-from transactions.models import Company, Contract, BankAccount, Thing
+from transactions.models import Company, Contract, BankAccount, Thing, Payment
 from rest_framework import generics
 
 
@@ -60,6 +60,19 @@ class ThingDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ThingSerializer
     lookup_field = 'uuid'
 
+"""
+Views for Payment
+"""
+
+class PaymentList(generics.ListCreateAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+    lookup_field = 'uuid'
+
+class PaymentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+    lookup_field = 'uuid'
 
 
 """

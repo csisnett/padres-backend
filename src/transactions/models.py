@@ -58,6 +58,8 @@ class Contract(UUIDable, Descriptionable, models.Model):
     supported_by = models.ManyToManyField('padres.Person', related_name='supported_contracts')
     signed_by = models.ManyToManyField('padres.Person', related_name='signed_contracts')
     companies = models.ManyToManyField('Company')
+    payments = models.ManyToManyField('Payment')
+    
 
 class BankAccount(UUIDable, Ownable, models.Model):
 
@@ -74,3 +76,12 @@ class Thing(Ownable, UUIDable, Descriptionable, models.Model):
 
 class Owner(UUIDable, models.Model):
     pass
+
+class Payment(UUIDable, models.Model):
+    sender = models.ForeignKey('padres.Person')
+    receiver = models.ForeignKey('padres.Person')
+    amount = MoneyField(max_digits=19, decimal_places=2)
+    authorized_by = models.ManytoMany('padres.Person')
+    event = models.ForeignKey('padres.Event')
+    #reasonable or not field
+    #type of payment: donation, salary, bribe

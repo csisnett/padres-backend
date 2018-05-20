@@ -28,6 +28,15 @@ urlpatterns = [
     url(r'bankaccounts/$',
         views.BankAccountList.as_view(),
         name='get_post_bankaccounts'
+        ),
+     url(r'payments/(?P<uuid>[-\w]+)/$',
+        views.PaymentDetail.as_view(),
+        name='get_delete_update_payment'
+        ),
+    url(r'payments/$',
+        views.PaymentList.as_view(),
+        name='get_post_payments'
         )
+
     
 ]
