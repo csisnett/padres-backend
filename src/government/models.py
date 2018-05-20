@@ -56,5 +56,5 @@ class LegalCase(UUIDable, Descriptionable, models.Model):
 
     title = models.CharField(max_length=140)
     people = models.ManyToManyField('padres.Person', blank=True)
-    event = models.ManyToManyField('padres.Event', blank=True)
+    events = models.ManyToManyField('padres.Event', blank=True)
     short_description = models.CharField(max_length=300)
