@@ -1,5 +1,5 @@
 from transactions.serializers import (CompanySerializer,
- ContractSerializer, BankAccountSerializer, ThingSerializer)
+ ContractSerializer, BankAccountSerializer, ThingSerializer, PaymentSerializer)
 from transactions.models import Company, Contract, BankAccount, Thing, Payment
 from rest_framework import generics
 

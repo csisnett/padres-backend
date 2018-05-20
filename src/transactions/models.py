@@ -49,7 +49,7 @@ class Ownable(models.Model):
 
 class Company(Ownable, UUIDable, Descriptionable, models.Model):
     name = models.CharField(max_length=130)
-    owner = models.AutoOneToOneField('Owner', on_delete='PROTECT', related_name='companies')
+    ownership = AutoOneToOneField('Owner', on_delete='PROTECT', related_name='companies')
 
 
 
@@ -79,10 +79,10 @@ class Owner(UUIDable, models.Model):
     pass
 
 class Payment(UUIDable, models.Model):
-    sender = models.ForeignKey('Owner')
-    receiver = models.ForeignKey('Owner')
+    sender = models.ForeignKey('Owner', on_delete='PROTECT', related_name='money_sent')
+    receiver = models.ForeignKey('Owner', on_delete='PROTECT', related_name='money_received')
     amount = MoneyField(max_digits=19, decimal_places=2)
-    authorized_by = models.ManytoManyField('padres.Person', blank=True, null=True)
-    event = models.ForeignKey('padres.Event', null=True)
+    authorized_by = models.ManyToManyField('padres.Person', blank=True, null=True)
+    event = models.ForeignKey('padres.Event', null=True, on_delete='PROTECT')
     #reasonable or not field
     #type of payment: donation, salary, bribe
