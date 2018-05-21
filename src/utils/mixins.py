@@ -9,7 +9,6 @@ class Descriptionable(models.Model):
 
 class UUIDable(models.Model):
     uuid = models.UUIDField(
-    db_index=True,
     default=uuid_lib.uuid4,
     editable=False)
 
