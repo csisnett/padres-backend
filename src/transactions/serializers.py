@@ -7,7 +7,7 @@ from transactions.models import Company, BankAccount, Thing, Owner, Contract, Pa
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = ('name', 'posessions', 'owners', 'long_description', 'uuid')
+        fields = ('name', 'ownership', 'owners', 'long_description', 'uuid')
 
 class ContractSerializer(serializers.ModelSerializer):
     class Meta:
