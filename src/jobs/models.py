@@ -7,9 +7,7 @@ class Jobable(Descriptionable, UUIDable, models.Model):
     Defines the attributes of a job
     """
     title = models.CharField(max_length=130, unique=True)
-    initial_date = models.DateField()
-    termination_date = models.DateField()
-    pay = models.IntegerField(null=True)
+    pay = models.ForeignKey('transactions.Payment', null=True, blank=True, on_delete='PROTECT')
 
 
     #benefits = Insert
