@@ -10,7 +10,7 @@ class BillSerializer(serializers.ModelSerializer):
 class LegalCaseSerializer(serializers.ModelSerializer):
     class Meta:
         model  = LegalCase
-        fields = ('people', 'title', 'event',
+        fields = ('people', 'title', 'events',
          'uuid', 'long_description','short_description')
 
 
