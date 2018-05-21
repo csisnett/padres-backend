@@ -49,7 +49,7 @@ class Ownable(models.Model):
 
 class Company(Ownable, UUIDable, Descriptionable, models.Model):
     name = models.CharField(max_length=130)
-    ownership = AutoOneToOneField('Owner', on_delete='PROTECT', related_name='companies')
+    ownership = AutoOneToOneField('Owner', on_delete='PROTECT', related_name='companies', blank=True, null=True)
 
 
 
@@ -86,3 +86,6 @@ class Payment(UUIDable, models.Model):
     event = models.ForeignKey('padres.Event', null=True, on_delete='PROTECT')
     #reasonable or not field
     #type of payment: donation, salary, bribe
+    #frequency = Integer
+    
+
