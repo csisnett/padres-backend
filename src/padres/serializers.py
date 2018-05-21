@@ -16,4 +16,4 @@ class PromiseSerializer(serializers.ModelSerializer):
     )
     class Meta:
         model = Promise
-        fields = ('name', 'uuid', 'people')
+        fields = ('title', 'uuid', 'people', 'long_description')
