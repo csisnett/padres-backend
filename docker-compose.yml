@@ -14,7 +14,7 @@ services:
   web:
     build: .
     container_name: dg1
-    command: python manage.py runserver
+    command: bash -c "python manage.py makemigrations && python manage.py migrate &&  gunicorn wsgi:application -b 0.0.0.0:8000"
     depends_on:
       - db
     volumes:
