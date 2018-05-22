@@ -42,14 +42,14 @@ class MonetaryTransaction(Transactionable, models.Model):
 class Ownable(models.Model):
     """ Describes any thing that can be owned"""
 
-    owners = models.ManyToManyField('Owner')
+    owners = models.ManyToManyField('Owner', blank=True)
     
     class Meta:
         abstract = True
 
 class Company(Ownable, UUIDable, Descriptionable, models.Model):
     name = models.CharField(max_length=130)
-    ownership = AutoOneToOneField('Owner', on_delete='PROTECT', related_name='companies', blank=True, null=True)
+    ownership = AutoOneToOneField('Owner', on_delete='PROTECT', related_name='companies',null=True)
 
 
 
