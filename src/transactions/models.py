@@ -1,7 +1,6 @@
 from djmoney.models.fields import MoneyField
 from django.db import models
 from utils.mixins import UUIDable, Descriptionable
-from annoying.fields import AutoOneToOneField
 
 """
 class Transactionable(models.Model):
@@ -49,7 +48,7 @@ class Ownable(models.Model):
 
 class Company(Ownable, UUIDable, Descriptionable, models.Model):
     name = models.CharField(max_length=130)
-    ownership = AutoOneToOneField('Owner', on_delete='PROTECT', related_name='companies',null=True)
+    ownership = OneToOneField('Owner', on_delete='PROTECT', related_name='companies',null=True)
 
 
 

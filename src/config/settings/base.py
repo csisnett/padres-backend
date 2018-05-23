@@ -19,7 +19,6 @@ INSTALLED_APPS = [
     'padres',
     'rest_framework',
     'djmoney',
-    'annoying',
 ]
 
 MIDDLEWARE = [
