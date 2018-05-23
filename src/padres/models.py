@@ -23,7 +23,7 @@ class Scandal(UUIDable, Descriptionable, models.Model):
 
 
 class Promise(Descriptionable, UUIDable, models.Model):
-    people = models.ManyToManyField('Person')
+    people = models.ManyToManyField('padres.Person')
     title = models.CharField(max_length=140, blank=False, null=True)
 
 class Person(Descriptionable, UUIDable, Genderable, models.Model):

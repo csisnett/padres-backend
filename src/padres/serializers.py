@@ -11,9 +11,10 @@ class PersonSerializer(serializers.ModelSerializer):
 class PromiseSerializer(serializers.ModelSerializer):
     people = serializers.HyperlinkedRelatedField(
         many=True,
-        view_name='people-detail',
-        queryset=Person.objects.all()
+        view_name='person-detail',
+        queryset=Person.objects.all(),
+        lookup_field='uuid'
     )
     class Meta:
         model = Promise
-        fields = ('title', 'uuid', 'people', 'long_description')
+        fields = ('title', 'uuid', 'long_description', 'people')

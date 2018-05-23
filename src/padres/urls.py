@@ -8,15 +8,15 @@ urlpatterns = [
         ),
     url(r'people/$',
         views.PersonList.as_view(),
-        name='get_post_people'
+        name='person-list'
         ),
     url(r'promises/(?P<uuid>[-\w]+)/$',
         views.PromiseDetail.as_view(),
-        name='get_delete_update_promise'
+        name='promise-detail'
         ),
     url(r'promises/$',
         views.PromiseList.as_view(),
-        name='get_post_promises'
+        name='promise-list'
         )
     
 ]
