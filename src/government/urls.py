@@ -17,6 +17,14 @@ urlpatterns = [
     url(r'legalcases/$',
         views.LegalCaseList.as_view(),
         name='get_post_legalcases'
-        )
+        ),
+     url(r'personbills/(?P<uuid>[-\w]+)/$',
+        views.PersonBillDetail.as_view(),
+        name='personbill-detail'
+        ),
+     url(r'personbills/$',
+        views.PersonBillList.as_view(),
+        name='personbill-list'
+        ),
     
 ]
