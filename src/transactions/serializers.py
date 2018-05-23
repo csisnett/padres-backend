@@ -12,7 +12,7 @@ class CompanySerializer(serializers.ModelSerializer):
 class ContractSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contract
-        fields = ('title', 'supported_by', 'signed_by' 'companies', 'payments', 'long_description', 'uuid')
+        fields = ('title', 'supported_by', 'signed_by', 'companies', 'payments', 'long_description', 'uuid')
 
 class BankAccountSerializer(serializers.ModelSerializer):
     class Meta:
