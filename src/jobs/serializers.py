@@ -4,17 +4,17 @@ from .models import CongressJob, GovernmentJob, PrivateJob, Institution
 class CongressJobSerializer(serializers.ModelSerializer):
     class Meta:
         model = CongressJob
-        fields = ('title', 'pay', 'uuid', 'long_description')
+        fields = ('title', 'uuid', 'long_description')
 
 class GovernmentJobSerializer(serializers.ModelSerializer):
     class Meta:
         model = GovernmentJob
-        fields = ('title', 'pay', 'uuid', 'long_description', 'institution')
+        fields = ('title', 'uuid', 'long_description', 'institution')
 
 class PrivateJobSerializer(serializers.ModelSerializer):
     class Meta:
         model = PrivateJob
-        fields = ('title', 'pay', 'uuid', 'long_description', 'company')
+        fields = ('title', 'uuid', 'long_description', 'company')
 
 class InstitutionSerializer(serializers.ModelSerializer):
     class Meta:
