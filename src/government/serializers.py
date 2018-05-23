@@ -17,4 +17,4 @@ class LegalCaseSerializer(serializers.ModelSerializer):
 class PersonBillSerializer(serializers.ModelSerializer):
     class Meta:
         model  = PersonBill
-        fields = ('uuid', 'vote' 'reason')
+        fields = ('uuid', 'vote' 'reason', 'person', 'bill')

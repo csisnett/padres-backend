@@ -4,7 +4,7 @@ from padres import views
 urlpatterns = [
     url(r'people/(?P<uuid>[-\w]+)/$',
         views.PersonDetail.as_view(),
-        name='get_delete_update_person'
+        name='person-detail'
         ),
     url(r'people/$',
         views.PersonList.as_view(),

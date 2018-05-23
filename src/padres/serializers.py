@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Person, Promise
+from .models import Person, Promise, Event, Scandal
 
 
 
@@ -11,7 +11,7 @@ class PersonSerializer(serializers.ModelSerializer):
 class PromiseSerializer(serializers.ModelSerializer):
     people = serializers.HyperlinkedRelatedField(
         many=True,
-        view_name='get_delete_update_person',
+        view_name='people-detail',
         queryset=Person.objects.all()
     )
     class Meta:

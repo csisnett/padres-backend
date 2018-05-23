@@ -1,4 +1,4 @@
-from padres.models import Person, Promise
+from padres.models import Person, Promise, Event, Scandal
 from padres.serializers import PersonSerializer, PromiseSerializer
 import pdb
 from rest_framework import generics
