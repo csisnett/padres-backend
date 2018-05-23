@@ -14,11 +14,11 @@ urlpatterns = [
 
     url(r'contracts/(?P<uuid>[-\w]+)/$',
         views.ContractDetail.as_view(),
-        name='get_delete_update_contract'
+        name='contract-detail'
         ),
     url(r'contracts/$',
         views.ContractList.as_view(),
-        name='get_post_contracts'
+        name='contract-list'
         ),
 
     url(r'bankaccounts/(?P<uuid>[-\w]+)/$',
@@ -36,6 +36,14 @@ urlpatterns = [
     url(r'payments/$',
         views.PaymentList.as_view(),
         name='get_post_payments'
+        ),
+     url(r'things/(?P<uuid>[-\w]+)/$',
+        views.ThingDetail.as_view(),
+        name='thing-detail'
+        ),
+    url(r'things/$',
+        views.ThingList.as_view(),
+        name='thing-list'
         )
 
     

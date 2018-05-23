@@ -12,7 +12,7 @@ class CompanySerializer(serializers.ModelSerializer):
 class ContractSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contract
-        fields = ('title', 'long_description', 'uuid', 'supported_by', 'signed_by' 'companies', 'payments')
+        fields = ('title', 'supported_by', 'signed_by' 'companies', 'payments', 'long_description', 'uuid')
 
 class BankAccountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,7 +22,7 @@ class BankAccountSerializer(serializers.ModelSerializer):
 class ThingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Thing
-        fields = ('name', 'owners', 'long_description', 'uuid')
+        fields = ('name', 'owners', 'long_description', 'uuid', 'value')
 
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
