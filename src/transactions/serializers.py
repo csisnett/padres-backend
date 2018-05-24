@@ -27,4 +27,4 @@ class ThingSerializer(serializers.ModelSerializer):
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
-        fields = ('sender', 'receiver', 'amount', 'authorized_by', 'reason', 'repetition', 'event', 'uuid')
+        fields = ('sender', 'receiver', 'amount', 'authorized_by', 'reason', 'repetition', 'total_amount', 'event', 'uuid')

@@ -2,41 +2,6 @@ from djmoney.models.fields import MoneyField
 from django.db import models
 from utils.mixins import UUIDable, Descriptionable
 
-"""
-class Transactionable(models.Model):
-    
-    Transaction Mixin 
-    Defines the attributes and relations of a Transaction
-    Transactions inherit from TransactionMixin
-
-    transaction is  inheritedTransaction(TransactionMixin, Basemodel)
-
-    interpretation: a transaction with a sender and a receiver.
-
-
-    example:
-    transaction = transaction(
-        title='Pago de contrato de IDAAN',
-        description='Awful',
-        buyer=UUID, UUID,
-        seller=UUID, UUID,
-    )
-    
-    sender = models.ForeignKey('Account', on_delete='')
-    receiver = models.ForeignKey('Account')
-
-    class Meta:
-        abstract = True
-
-
-class MonetaryTransaction(Transactionable, models.Model):
-    
-    amount_paid = MoneyField(decimal_places=2, default_currency='USD')
-
-    object_sold = models.ManyToManyField('Thing')
-
-"""
-
 
 class Ownable(models.Model):
     """ Describes any thing that can be owned"""
@@ -85,7 +50,8 @@ class Payment(UUIDable, models.Model):
     ('SIN', 'Sin Justificación'),
     ('B', "Bono"),
     ('SOB', "Soborno"),
-    ('DON', "Donación")
+    ('DON', "Donación"),
+    ('CON', "Pago por Contrato")
     )
     reason = models.CharField(max_length=3, choices=PAYMENT_REASONS, default='SIN')
 
@@ -95,6 +61,8 @@ class Payment(UUIDable, models.Model):
     authorized_by = models.ManyToManyField('padres.Person', blank=True, null=True)
     event = models.ForeignKey('padres.Event', null=True, on_delete='PROTECT')
     repetition = models.PositiveSmallIntegerField(default=1)
+    total_amount = MoneyField(max_digits=19, decimal_places=2)
+
     
     #reasonable or not field
     #type of payment: donation, salary, bribe
