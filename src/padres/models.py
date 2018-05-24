@@ -15,7 +15,7 @@ class Genderable(models.Model):
 class Event(Descriptionable, UUIDable, models.Model):
     title = models.CharField(max_length=140, blank=True, null=True)
     date = models.DateField(default='0001-01-01', blank=True)
-    people = models.ManyToManyField('Person')
+    people = models.ManyToManyField('Person', related_name='events')
     resources = models.ManyToManyField('Resource')
 
 class Scandal(UUIDable, Descriptionable, models.Model):
@@ -44,5 +44,5 @@ class Person(Descriptionable, UUIDable, Genderable, models.Model):
 
 
 class Resource(UUIDable, models.Model):
-    url = model.URLField()
+    url = models.URLField()
     published_date = models.DateField(default='0001-01-01', blank=True)

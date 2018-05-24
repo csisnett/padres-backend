@@ -1,12 +1,14 @@
 from rest_framework import serializers
-from .models import Person, Promise, Event, Scandal
+from .models import Person, Promise, Event, Scandal, Resource
 
 
 
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Person
-        fields = ('name', 'birthday', 'gender', 'uuid', 'long_description', 'owner', 'short_description')
+        fields = ('name', 'birthday', 'gender', 'uuid',
+         'long_description', 'ownership', 'short_description',
+          'nickname', 'family', 'scandals')
 
 class PromiseSerializer(serializers.ModelSerializer):
     people = serializers.HyperlinkedRelatedField(

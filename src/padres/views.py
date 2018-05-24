@@ -1,5 +1,6 @@
-from padres.models import Person, Promise, Event, Scandal
-from padres.serializers import PersonSerializer, PromiseSerializer
+from padres.models import Person, Promise, Event, Scandal, Resource
+from padres.serializers import (PersonSerializer, PromiseSerializer, ScandalSerializer,
+EventSerializer, ResourceSerializer)
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
