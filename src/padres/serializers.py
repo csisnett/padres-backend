@@ -18,3 +18,18 @@ class PromiseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Promise
         fields = ('title', 'uuid', 'long_description', 'people')
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model  = Event
+        fields = ('title', 'date', 'people', 'uuid', 'long_description', 'resources')
+
+class ScandalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model  = Scandal
+        fields = ('events', 'short_description', 'people', 'uuid', 'long_description')
+
+class ResourceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model  = Resource
+        fields = ('url', 'published_date', 'uuid')

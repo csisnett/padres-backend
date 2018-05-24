@@ -36,7 +36,50 @@ class PromiseDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 """
-Old views for Contracts
+Views for Scandal
+"""
+
+class ScandalList(generics.ListCreateAPIView):
+    queryset = Scandal.objects.all()
+    serializer_class = ScandalSerializer
+    lookup_field = 'uuid'
+
+
+class ScandalDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Scandal.objects.all()
+    serializer_class = ScandalSerializer
+    lookup_field = 'uuid'
+
 
 
 """
+Views for Event
+"""
+
+class EventList(generics.ListCreateAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+    lookup_field = 'uuid'
+
+
+class EventDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+    lookup_field = 'uuid'
+
+
+
+"""
+Views for Resource
+"""
+
+class ResourceList(generics.ListCreateAPIView):
+    queryset = Resource.objects.all()
+    serializer_class = ResourceSerializer
+    lookup_field = 'uuid'
+
+
+class ResourceDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Resource.objects.all()
+    serializer_class = ResourceSerializer
+    lookup_field = 'uuid'

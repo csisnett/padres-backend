@@ -40,7 +40,7 @@ class Person(Descriptionable, UUIDable, Genderable, models.Model):
     ownership = models.OneToOneField('transactions.Owner', on_delete='PROTECT', blank=True, null=True)
     short_description = models.CharField(max_length=140, blank=True)
     family = models.ManyToManyField('Person')
-    scandals = models.ManyToManyField('Scandal')
+    scandals = models.ManyToManyField('Scandal', related_name='people')
 
 
 class Resource(UUIDable, models.Model):
