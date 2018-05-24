@@ -78,11 +78,24 @@ class Owner(UUIDable, models.Model):
     pass
 
 class Payment(UUIDable, models.Model):
+
+    PAYMENT_REASONS = (
+    ('S', "Salario"),
+    ('C', 'Coima'),
+    ('SIN', 'Sin Justificación'),
+    ('B', "Bono"),
+    ('SOB', "Soborno"),
+    ('DON', "Donación")
+    )
+    reason = models.CharField(max_length=3, choices=PAYMENT_REASONS, default='SIN')
+
     sender = models.ForeignKey('Owner', on_delete='PROTECT', related_name='money_sent')
     receiver = models.ForeignKey('Owner', on_delete='PROTECT', related_name='money_received')
     amount = MoneyField(max_digits=19, decimal_places=2)
     authorized_by = models.ManyToManyField('padres.Person', blank=True, null=True)
     event = models.ForeignKey('padres.Event', null=True, on_delete='PROTECT')
+    repetition = models.PositiveSmallIntegerField(default=1)
+    
     #reasonable or not field
     #type of payment: donation, salary, bribe
     #frequency = Integer
