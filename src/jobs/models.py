@@ -15,7 +15,7 @@ class Jobable(Descriptionable, UUIDable, models.Model):
 
     #wasted_money = ...
     #institution = ...
-    #wasted_money = ... models.ManyToManyField(Transaction)s
+    #wasted_money = ... models.ManyToManyField(Transactions)
 
 class GovernmentJob(Jobable, models.Model):
     institution = models.ForeignKey('Institution', on_delete='PROTECT')
