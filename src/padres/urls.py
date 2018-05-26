@@ -1,6 +1,26 @@
 from django.conf.urls import url
-from padres import views
+from padres.views import (PersonViewSet, PromiseViewSet,
+EventViewSet, ScandalViewSet, ResourceViewSet)
+from rest_framework.routers import DefaultRouter
 
+router = DefaultRouter()
+router.register(r'people', PersonViewSet)
+router.register(r'promises', PromiseViewSet)
+router.register(r'events', EventViewSet)
+router.register(r'scandals', ScandalViewSet)
+router.register(r'resources', ResourceViewSet)
+
+urlpatterns = router.urls
+
+
+
+
+
+
+
+
+
+"""
 urlpatterns = [
     url(r'people/(?P<uuid>[-\w]+)/$',
         views.PersonDetail.as_view(),
@@ -44,3 +64,5 @@ urlpatterns = [
         )
     
 ]
+
+"""
