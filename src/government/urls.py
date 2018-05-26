@@ -1,6 +1,16 @@
 from django.conf.urls import url
-from government import views
+from government.views import (BillViewSet, LegalCaseViewSet,
+PersonBillViewSet)
+from rest_framework.routers import DefaultRouter
 
+router = DefaultRouter()
+router.register(r'bills', BillViewSet)
+router.register(r'legalcases', LegalCaseViewSet)
+router.register(r'personbills', PersonBillViewSet)
+
+urlpatterns = router.urls
+
+"""
 urlpatterns = [
     url(r'bills/(?P<uuid>[-\w]+)/$',
         views.BillDetail.as_view(),
@@ -28,3 +38,5 @@ urlpatterns = [
         ),
     
 ]
+
+"""
