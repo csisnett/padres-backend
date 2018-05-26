@@ -1,13 +1,46 @@
 from transactions.serializers import (CompanySerializer,
  ContractSerializer, BankAccountSerializer, ThingSerializer, PaymentSerializer)
 from transactions.models import Company, Contract, BankAccount, Thing, Payment
-from rest_framework import generics
+from rest_framework import viewsets
+
+"""
+Viewsets
+"""
+
+class CompanyViewSet(viewsets.ModelViewSet):
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
+    lookup_field = 'uuid'
+
+
+class ContractViewSet(viewsets.ModelViewSet):
+    queryset = Contract.objects.all()
+    serializer_class = ContractSerializer
+    lookup_field = 'uuid'
+
+class BankAccountViewSet(viewsets.ModelViewSet):
+    queryset = BankAccount.objects.all()
+    serializer_class = BankAccountSerializer
+    lookup_field = 'uuid'
+
+class ThingViewSet(viewsets.ModelViewSet):
+    queryset = Thing.objects.all()
+    serializer_class = ThingSerializer
+    lookup_field = 'uuid'
+
+class PaymentViewSet(viewsets.ModelViewSet):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+    lookup_field = 'uuid'
+
+
 
 
 
 """
+
 Views for Company
-"""
+
 
 class CompanyList(generics.ListCreateAPIView):
     queryset = Company.objects.all()
@@ -18,9 +51,9 @@ class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
     lookup_field = 'uuid'
-"""
+
 Views for Contract
-"""
+
 
 class ContractList(generics.ListCreateAPIView):
     queryset = Contract.objects.all()
@@ -33,9 +66,9 @@ class ContractDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'uuid'
 
 
-"""
+
 Views for BankAccount
-"""
+
 class BankAccountList(generics.ListCreateAPIView):
     queryset = BankAccount.objects.all()
     serializer_class = BankAccountSerializer
@@ -46,9 +79,9 @@ class BankAccountDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BankAccountSerializer
     lookup_field = 'uuid'
 
-"""
+
 Views for Thing
-"""
+
 
 class ThingList(generics.ListCreateAPIView):
     queryset = Thing.objects.all()
@@ -60,9 +93,9 @@ class ThingDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ThingSerializer
     lookup_field = 'uuid'
 
-"""
+
 Views for Payment
-"""
+
 
 class PaymentList(generics.ListCreateAPIView):
     queryset = Payment.objects.all()
@@ -75,7 +108,8 @@ class PaymentDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'uuid'
 
 
-"""
+
+
 old Function based View for Contract
 
 

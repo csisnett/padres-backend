@@ -1,6 +1,18 @@
 from django.conf.urls import url
-from transactions import views
+from transactions.views import (CompanyViewSet, ContractViewSet,
+BankAccountViewSet, PaymentViewSet, ThingViewSet)
+from rest_framework.routers import DefaultRouter
 
+router = DefaultRouter()
+router.register(r'companies', CompanyViewSet)
+router.register(r'contracts', ContractViewSet)
+router.register(r'bankaccounts', BankAccountViewSet)
+router.register(r'payments', PaymentViewSet)
+router.register(r'things', ThingViewSet)
+
+urlpatterns = router.urls
+
+"""
 urlpatterns = [
 
     url(r'companies/(?P<uuid>[-\w]+)/$',
@@ -48,3 +60,4 @@ urlpatterns = [
 
     
 ]
+"""
