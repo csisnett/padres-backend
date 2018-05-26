@@ -12,6 +12,7 @@ services:
     depends_on:
       - web
   web:
+  
     build: .
     container_name: dg1
     command: python manage.py runserver

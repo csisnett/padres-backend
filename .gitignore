@@ -3,3 +3,4 @@ settings_secret.py
 settings_secret_prod.py
 /config
 *.env
+/postgresimage
