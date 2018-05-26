@@ -1,5 +1,23 @@
 from django.conf.urls import url
-from jobs import views
+from jobs.views import (CongressJobViewSet, GovernmentJobViewSet,
+InstitutionViewSet, PrivateJobViewSet)
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'congressjobs', CongressJobViewSet)
+router.register(r'governmentjobs', GovernmentJobViewSet)
+router.register(r'privatejobs', PrivateJobViewSet)
+router.register(r'institutions', InstitutionViewSet)
+
+urlpatterns = router.urls
+
+
+
+
+
+
+"""
+Saved just in case
 
 urlpatterns = [
     url(r'congressjobs/(?P<uuid>[-\w]+)/$',
@@ -38,3 +56,5 @@ urlpatterns = [
         )
     
 ]
+
+"""

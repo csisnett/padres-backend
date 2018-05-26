@@ -1,13 +1,43 @@
 
 from jobs.models import CongressJob, GovernmentJob, PrivateJob, Institution
 from jobs.serializers import GovernmentJobSerializer, CongressJobSerializer, PrivateJobSerializer, InstitutionSerializer
-from rest_framework import generics
+from rest_framework import viewsets
+
+"Viewsets"
+
+class CongressJobViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for congressjob
+    """
+
+    queryset = CongressJob.objects.all()
+    serializer_class = CongressJobSerializer
+    lookup_field = 'uuid'
+
+
+
+class GovernmentJobViewSet(viewsets.ModelViewSet):
+    
+    queryset = GovernmentJob.objects.all()
+    serializer_class = GovernmentJobSerializer
+    lookup_field = 'uuid'
+
+
+class PrivateJobViewSet(viewsets.ModelViewSet):
+    
+    queryset = PrivateJob.objects.all()
+    serializer_class = PrivateJobSerializer
+    lookup_field = 'uuid'
+
+
+class InstitutionViewSet(viewsets.ModelViewSet):
+    
+    queryset = Institution.objects.all()
+    serializer_class = InstitutionSerializer
+    lookup_field = 'uuid'
 
 
 """
-Views for Job
-"""
-
 class CongressJobList(generics.ListCreateAPIView):
     queryset = CongressJob.objects.all()
     serializer_class = CongressJobSerializer
@@ -18,6 +48,9 @@ class CongressJobDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = CongressJob.objects.all()
     serializer_class = CongressJobSerializer
     lookup_field = 'uuid'
+
+
+
 
 class GovernmentJobList(generics.ListCreateAPIView):
     queryset = GovernmentJob.objects.all()
@@ -51,3 +84,5 @@ class InstitutionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
     lookup_field = 'uuid'
+
+    """
