@@ -1,6 +1,7 @@
 from djmoney.models.fields import MoneyField
 from django.db import models
 from utils.mixins import UUIDable, Descriptionable
+from .managers import CompanyManager
 
 
 class Ownable(models.Model):
@@ -10,10 +11,6 @@ class Ownable(models.Model):
     
     class Meta:
         abstract = True
-
-class Company(Ownable, UUIDable, Descriptionable, models.Model):
-    name = models.CharField(max_length=130)
-    ownership = models.OneToOneField('Owner', on_delete='PROTECT', related_name='companies',null=True)
 
 
 
@@ -39,8 +36,17 @@ class Thing(Ownable, UUIDable, Descriptionable, models.Model):
 #for alternatives to generic relations go to https://lukeplant.me.uk/blog/posts/avoid-django-genericforeignkey/
 
 class Owner(UUIDable, models.Model):
-    
     pass
+    
+
+
+class Company(Ownable, UUIDable, Descriptionable, models.Model):
+    name = models.CharField(max_length=130)
+    ownership = models.OneToOneField('Owner', on_delete='PROTECT',
+     related_name='companies', blank=True, null=True)
+
+    objects = CompanyManager()
+
 
 class Payment(UUIDable, models.Model):
 
