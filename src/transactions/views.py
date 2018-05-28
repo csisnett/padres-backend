@@ -4,27 +4,20 @@ from transactions.models import Company, Contract, BankAccount, Thing, Payment
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from utils.helpers import create_owner
+from utils.viewmixins import CreateOwnerMixin
 
 """
 Viewsets
 """
 
 
-class CompanyViewSet(viewsets.ModelViewSet):
+class CompanyViewSet(CreateOwnerMixin, viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
     lookup_field = 'uuid'
 
     def create(self, request):
-        editable_request = request.data.copy()
-        editable_request.__setitem__('ownership', create_owner().pk)
-
-        serializer = CompanySerializer(data=editable_request)
-        if serializer.is_valid(self):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+        return self.add_ownership(request=request, serializer_class=self.serializer_class)
 
 class ContractViewSet(viewsets.ModelViewSet):
     queryset = Contract.objects.all()
