@@ -3,16 +3,19 @@ from padres.serializers import (PersonSerializer, PromiseSerializer, ScandalSeri
 EventSerializer, ResourceSerializer)
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-
+from utils.viewmixins import CreateOwnerMixin
 
 """
 Viewsets
 """
 
-class PersonViewSet(viewsets.ModelViewSet):
+class PersonViewSet(CreateOwnerMixin, viewsets.ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
     lookup_field = 'uuid'
+
+    def create(self, request):
+        return self.add_ownership(request=request, serializer_class=self.serializer_class)
 
 class PromiseViewSet(viewsets.ModelViewSet):
     queryset = Promise.objects.all()
