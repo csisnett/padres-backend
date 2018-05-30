@@ -1,9 +1,13 @@
-from padres.models import Person, Promise, Event, Scandal, Resource
+from padres.models import (Person, Promise, Event, Scandal,
+ Source, Statement, StatementInformation, Believe)
+
 from padres.serializers import (PersonSerializer, PromiseSerializer, ScandalSerializer,
-EventSerializer, ResourceSerializer)
+EventSerializer, SourceSerializer, BelieveSerializer, StatementInformationSerializer,
+ StatementSerializer)
+
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
-from utils.viewmixins import CreateOwnerMixin
+#from rest_framework.permissions import IsAuthenticated
+from utils.viewmixins import CreateOwnerMixin, CreateStatementInfoMixin
 
 """
 Viewsets
@@ -22,6 +26,9 @@ class PromiseViewSet(viewsets.ModelViewSet):
     serializer_class = PromiseSerializer
     lookup_field = 'uuid'
 
+    def create(self, request):
+        return self.add_statement_information(request=request, serializer_class=self.serializer_class)
+
 class ScandalViewSet(viewsets.ModelViewSet):
     queryset = Scandal.objects.all()
     serializer_class = ScandalSerializer
@@ -34,12 +41,43 @@ class EventViewSet(viewsets.ModelViewSet):
     lookup_field = 'uuid'
 
 
-class ResourceViewSet(viewsets.ModelViewSet):
-    queryset = Resource.objects.all()
-    serializer_class = ResourceSerializer
+class SourceViewSet(viewsets.ModelViewSet):
+    queryset = Source.objects.all()
+    serializer_class = SourceSerializer
     lookup_field = 'uuid'
 
+class BelieveViewSet(viewsets.ModelViewSet):
+    queryset = Believe.objects.all()
+    serializer_class = BelieveSerializer
+    lookup_field = 'uuid'
 
+    def create(self, request):
+        return self.add_statement_information(request=request, serializer_class=self.serializer_class)
+
+
+class StatementViewSet(viewsets.ModelViewSet):
+    queryset = Statement.objects.all()
+    serializer_class = StatementSerializer
+    lookup_field = 'uuid'
+
+    def create(self, request):
+        return self.add_statement_information(request=request, serializer_class=self.serializer_class)
+
+
+class StatementInformationViewSet(viewsets.ModelViewSet):
+    queryset = StatementInformation.objects.all()
+    serializer_class = StatementInformationSerializer
+    lookup_field = 'uuid'
+
+class PoliticalPartyViewSet(viewsets.ModelViewSet):
+    queryset = PoliticalParty.objects.all()
+    serializer_class = PoliticalPartySerializer
+    lookup_field = 'uuid'
+
+class SourceViewSet(viewsets.ModelViewSet):
+    queryset = Source.objects.all()
+    serializer_class = SourceSerializer
+    lookup_field = 'uuid'
 
 
 """

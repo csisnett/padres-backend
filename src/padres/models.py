@@ -22,8 +22,9 @@ class Event(Descriptionable, UUIDable, models.Model):
     sources = models.ManyToManyField('Source')
 
 class Scandal(UUIDable, Descriptionable, models.Model):
+
     events = models.ManyToManyField('Event')
-    short_description= models.CharField(max_length=140, blank=True)
+    title = models.CharField(max_length=140, blank=True)
 
 
 class Promise(Descriptionable, UUIDable, models.Model):
@@ -35,6 +36,7 @@ class Promise(Descriptionable, UUIDable, models.Model):
     ('A', 'Cumplida completamente')
     )
 
+    title = models.CharField(max_length=140)
     people = models.ManyToManyField('padres.Person', related_name='promises')
     events = models.ManyToManyField('padres.Event')
     category = models.CharField(max_length=3, choices=PROMISE_CHOICES, default='N')
@@ -86,6 +88,7 @@ class Believe(Descriptionable, UUIDable, models.Model):
     ('P', 'Cambió en parte'),
     )
 
+    title = models.CharField(max_length=140)
     people = models.ManyToManyField('padres.Person', related_name='believes')
     category = models.CharField(max_length=3, choices=BELIEVE_CHOICES, default='H')
     information = models.OneToOneField('StatementInformation', on_delete='CASCADE')
@@ -105,7 +108,7 @@ class Contactable(models.Model):
     class Meta:
         abstract = True
 
-class StatementInformation(models.Model):
+class StatementInformation(UUIDable, models.Model):
 
     exact_statement = models.TextField()
     evidence = models.ManyToManyField('padres.Event', blank=True) #list of events that verify or not the statement

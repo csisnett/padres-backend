@@ -7,3 +7,9 @@ def create_owner():
     owner = Owner()
     owner.save()
     return owner
+
+def create_statement_information():
+    StatementInformation = apps.get_model('padres', 'StatementInformation')
+    statement = StatementInformation()
+    statement.save()
+    return statement
