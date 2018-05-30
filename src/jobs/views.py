@@ -1,4 +1,3 @@
-
 from jobs.models import CongressJob, GovernmentJob, PrivateJob, Institution
 from jobs.serializers import GovernmentJobSerializer, CongressJobSerializer, PrivateJobSerializer, InstitutionSerializer
 from rest_framework import viewsets
@@ -30,12 +29,15 @@ class PrivateJobViewSet(viewsets.ModelViewSet):
     lookup_field = 'uuid'
 
 
-class InstitutionViewSet(viewsets.ModelViewSet):
+class InstitutionViewSet(CreateOwnerMixin, viewsets.ModelViewSet):
     
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
     lookup_field = 'uuid'
 
+    def create(self, request):
+        return self.add_ownership(request=request, serializer_class=self.serializer_class)
+        
 
 """
 class CongressJobList(generics.ListCreateAPIView):
