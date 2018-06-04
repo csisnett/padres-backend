@@ -13,7 +13,17 @@ class Genderable(models.Model):
         abstract = True
 
 
+class Contactable(models.Model):
+    twitter = models.CharField(max_length=100, blank=True)
+    facebook = models.CharField(max_length=100, blank=True)
+    instagram = models.CharField(max_length=100, blank=True)
+    email_address = models.CharField(max_length=130, blank=True)
+    website = models.URLField(blank=True)
+    office_number = models.CharField(max_length=50, blank=True)
 
+    class Meta:
+        abstract = True
+        
 
 class Event(Descriptionable, UUIDable, models.Model):
     title = models.CharField(max_length=140, blank=True, null=True)
@@ -21,10 +31,16 @@ class Event(Descriptionable, UUIDable, models.Model):
     people = models.ManyToManyField('Person', related_name='events')
     sources = models.ManyToManyField('Source')
 
+    def __str__(self):
+        return self.title
+
 class Scandal(UUIDable, Descriptionable, models.Model):
 
     events = models.ManyToManyField('Event')
     title = models.CharField(max_length=140, blank=True)
+
+    def __str__(self):
+        return self.title
 
 
 class Promise(Descriptionable, UUIDable, models.Model):
@@ -42,6 +58,9 @@ class Promise(Descriptionable, UUIDable, models.Model):
     category = models.CharField(max_length=3, choices=PROMISE_CHOICES, default='N')
     information = models.OneToOneField('StatementInformation', on_delete='CASCADE')
 
+    def __str__(self):
+        return self.title
+
 
 class Person(Contactable, Descriptionable, UUIDable, Genderable, models.Model):
     """
@@ -57,11 +76,17 @@ class Person(Contactable, Descriptionable, UUIDable, Genderable, models.Model):
     short_description = models.CharField(max_length=140, blank=True)
     family = models.ManyToManyField('Person', blank=True)
     scandals = models.ManyToManyField('Scandal', related_name='people', blank=True)
+
+    def __str__(self):
+        return self.name
     
 
 class PoliticalParty(Contactable, Descriptionable, UUIDable, models.Model):
     name = models.CharField(max_length=140)
     people = models.ManyToManyField('Person', blank=True, related_name='party')
+
+    def __str__(self):
+        return self.name
 
 class Statement(Descriptionable, UUIDable, models.Model):
     STATEMENT_CHOICES = (
@@ -80,6 +105,9 @@ class Statement(Descriptionable, UUIDable, models.Model):
     category = models.CharField(max_length=3, choices=STATEMENT_CHOICES, default='UN')
     information = models.OneToOneField('StatementInformation', on_delete='CASCADE', related_name='statement')
 
+    def __str__(self):
+        return self.title
+
 
 class Believe(Descriptionable, UUIDable, models.Model):
     BELIEVE_CHOICES = (
@@ -93,20 +121,12 @@ class Believe(Descriptionable, UUIDable, models.Model):
     category = models.CharField(max_length=3, choices=BELIEVE_CHOICES, default='H')
     information = models.OneToOneField('StatementInformation', on_delete='CASCADE')
 
+    def __str__(self):
+        return self.title
+
 class Source(UUIDable, models.Model):
     url = models.URLField()
     published_date = models.DateField(default='0001-01-01', blank=True)
-
-class Contactable(models.Model):
-    twitter = models.CharField(max_length=100, blank=True)
-    facebook = models.CharField(max_length=100, blank=True)
-    instagram = models.CharField(max_length=100, blank=True)
-    email_address = models.CharField(max_length=130, blank=True)
-    website = models.URLField(blank=True)
-    office_number = models.CharField(max_length=50, blank=True)
-
-    class Meta:
-        abstract = True
 
 class StatementInformation(UUIDable, models.Model):
 

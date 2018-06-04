@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from padres.views import (PersonViewSet, PromiseViewSet,
-EventViewSet, ScandalViewSet, ResourceViewSet)
+EventViewSet, ScandalViewSet, SourceViewSet, StatementViewSet,
+PoliticalPartyViewSet, StatementInformationViewSet, BelieveViewSet)
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -8,7 +9,7 @@ router.register(r'people', PersonViewSet)
 router.register(r'promises', PromiseViewSet)
 router.register(r'events', EventViewSet)
 router.register(r'scandals', ScandalViewSet)
-router.register(r'resources', ResourceViewSet)
+router.register(r'sources', SourceViewSet)
 
 urlpatterns = router.urls
 

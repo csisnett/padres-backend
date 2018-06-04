@@ -25,7 +25,7 @@ class Contract(UUIDable, Descriptionable, models.Model):
 class BankAccount(UUIDable, Ownable, models.Model):
 
     balance = MoneyField(max_digits=19, decimal_places=2)
-    transactions = models.ManyToManyField('BankAccount', blank=True, null=True)
+    transactions = models.ManyToManyField('BankAccount', blank=True)
 
 
 
@@ -64,14 +64,12 @@ class Payment(UUIDable, models.Model):
     sender = models.ForeignKey('Owner', on_delete='PROTECT', related_name='money_sent')
     receiver = models.ForeignKey('Owner', on_delete='PROTECT', related_name='money_received')
     amount = MoneyField(max_digits=19, decimal_places=2)
-    authorized_by = models.ManyToManyField('padres.Person', blank=True, null=True)
+    authorized_by = models.ManyToManyField('padres.Person', blank=True)
     event = models.ForeignKey('padres.Event', null=True, on_delete='PROTECT')
-    repetition = models.PositiveSmallIntegerField(default=1)
+    repetition = models.PositiveSmallIntegerField(default=1) # 1 means paid once
     total_amount = MoneyField(max_digits=19, decimal_places=2)
 
     
     #reasonable or not field
     #type of payment: donation, salary, bribe
     #frequency = Integer
-    
-

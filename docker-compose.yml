@@ -15,7 +15,7 @@ services:
     image: padres_d:latest
     build: .
     container_name: dg01
-    command: bash -c "python manage.py makemigrations && python manage.py migrate &&  gunicorn wsgi:application -b 0.0.0.0:8000"
+    command:  bash -c "gunicorn wsgi:application -b 0.0.0.0:8000"
     depends_on:
       - db
     volumes:
@@ -26,5 +26,5 @@ services:
     
   db:
     image: postgres_d:latest
-    container_name: ps01
+    container_name: ps1
     env_file: ./secret.env

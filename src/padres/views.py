@@ -1,9 +1,9 @@
 from padres.models import (Person, Promise, Event, Scandal,
- Source, Statement, StatementInformation, Believe)
+ Source, Statement, StatementInformation, Believe, PoliticalParty)
 
 from padres.serializers import (PersonSerializer, PromiseSerializer, ScandalSerializer,
 EventSerializer, SourceSerializer, BelieveSerializer, StatementInformationSerializer,
- StatementSerializer)
+ StatementSerializer, PoliticalPartySerializer)
 
 from rest_framework import viewsets
 #from rest_framework.permissions import IsAuthenticated

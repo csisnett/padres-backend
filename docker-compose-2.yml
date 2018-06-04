@@ -2,7 +2,7 @@ version: '2'
 services:
   nginx:
     image: nginx:latest
-    container_name: ng12
+    container_name: ng01
     ports:
       - "8000:8000"
     volumes:
@@ -12,10 +12,10 @@ services:
     depends_on:
       - web
   web:
-  
+    image: padres_d:latest
     build: .
-    container_name: dg1
-    command: python manage.py runserver
+    container_name: dg01
+    command: bash -c "python manage.py makemigrations && python manage.py migrate &&  gunicorn wsgi:application -b 0.0.0.0:8000"
     depends_on:
       - db
     volumes:
@@ -25,8 +25,6 @@ services:
       - "8000"
     
   db:
-    image: postgres_d:latest
-    container_name: ps1
-    ports:
-    -  "5432:5432"
+    image: pspadres:latest
+    container_name: ps01
     env_file: ./secret.env

@@ -19,7 +19,7 @@ INSTALLED_APPS = [
     'padres',
     'rest_framework',
     'djmoney',
-    'website'
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -69,7 +69,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'website.User'
+AUTH_USER_MODEL = 'users.CustomUser'
 
 #Internationalization
 

@@ -60,7 +60,7 @@ class StatementSerializer(serializers.ModelSerializer):
         fields = ('title', 'people', 'category', 'information', 'about_events',
         'long_description','uuid')
 
-class StatementInformation(serializers.ModelSerializer):
+class StatementInformationSerializer(serializers.ModelSerializer):
     class Meta:
         model  = StatementInformation
         fields = ('exact_statement', 'evidence', 'date',
