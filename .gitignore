@@ -4,3 +4,4 @@ settings_secret_prod.py
 /config
 *.env
 /postgresimage
+.vscode

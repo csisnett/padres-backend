@@ -10,7 +10,7 @@ class PersonSerializer(serializers.ModelSerializer):
         model  = Person
         fields = ('name', 'birthday', 'gender', 'ownership', 'short_description',
           'nickname', 'family', 'scandals', 'uuid',
-         'long_description' 'twitter', 'facebook',
+         'long_description', 'twitter', 'facebook',
            'instagram', 'email_address', 'website', 'office_number')
 
 class PromiseSerializer(serializers.ModelSerializer):

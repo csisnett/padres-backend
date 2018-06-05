@@ -20,13 +20,13 @@ INSTALLED_APPS = [
     'padres',
     'rest_framework',
     'djmoney',
-    'users',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.twitter'
+    'allauth.socialaccount.providers.twitter',
+    'users'
 
 
 ]
@@ -59,6 +59,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

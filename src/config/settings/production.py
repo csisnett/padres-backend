@@ -1,7 +1,7 @@
 from .base import *
 from .settings_secret_prod import *
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['web']
 
