@@ -6,7 +6,7 @@ from .settings_secret_prod import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['web']
+ALLOWED_HOSTS = ['web', '127.0.0.1']
 
 REST_FRAMEWORK = {
     

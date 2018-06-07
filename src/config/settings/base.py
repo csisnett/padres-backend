@@ -66,7 +66,29 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
-SITE_ID = 1
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.request",
+    "django.contrib.auth.context_processors.auth",
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
+)
+ 
+# auth and allauth settings
+LOGIN_REDIRECT_URL = '/'
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_PROVIDERS = {
+    'twitter': {
+        'SCOPE': ['email', 'publish_stream'],
+        'METHOD': 'oauth2'  # instead of 'oauth2'
+    },
+    'facebook': {
+        'SCOPE': ['email', 'publish_stream'],
+        'METHOD': 'oauth2'  # instead of 'oauth2'
+    }
+}
+
+#keep this constant to the correct Domain Name in Sites/Django Admin
+SITE_ID = 3
 
 WSGI_APPLICATION = 'wsgi.application'
 
