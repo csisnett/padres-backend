@@ -1,7 +1,7 @@
 from jobs.models import CongressJob, GovernmentJob, PrivateJob, Institution
 from jobs.serializers import GovernmentJobSerializer, CongressJobSerializer, PrivateJobSerializer, InstitutionSerializer
 from rest_framework import viewsets
-
+from reversion.views import RevisionMixin
 from utils.viewmixins import CreateOwnerMixin
 
 "Viewsets"
@@ -17,7 +17,7 @@ class CongressJobViewSet(viewsets.ModelViewSet):
 
 
 
-class GovernmentJobViewSet(viewsets.ModelViewSet):
+class GovernmentJobViewSet(RevisionMixin, viewsets.ModelViewSet):
     
     queryset = GovernmentJob.objects.all()
     serializer_class = GovernmentJobSerializer
