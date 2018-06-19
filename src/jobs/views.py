@@ -1,7 +1,6 @@
 from jobs.models import CongressJob, GovernmentJob, PrivateJob, Institution
 from jobs.serializers import GovernmentJobSerializer, CongressJobSerializer, PrivateJobSerializer, InstitutionSerializer
 from rest_framework import viewsets
-from reversion.views import RevisionMixin
 from utils.viewmixins import CreateOwnerMixin
 
 "Viewsets"
@@ -30,15 +29,6 @@ class PrivateJobViewSet(viewsets.ModelViewSet):
     serializer_class = PrivateJobSerializer
     lookup_field = 'uuid'
 
-
-class InstitutionViewSet(CreateOwnerMixin, viewsets.ModelViewSet):
-    
-    queryset = Institution.objects.all()
-    serializer_class = InstitutionSerializer
-    lookup_field = 'uuid'
-
-    def create(self, request):
-        return self.add_ownership(request=request, serializer_class=self.serializer_class)
         
 
 """

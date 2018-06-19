@@ -1,6 +1,13 @@
 from django.db import models
 from utils.mixins import UUIDable, Descriptionable
 
+
+class Institution(Descriptionable, UUIDable, models.Model):
+    name = models.CharField(max_length=130)
+    events_list = models.ManyToManyField('padres.ListOfEvent')
+    events = models.ManyToManyField('padres.Event')
+
+
 class Bill(UUIDable, Descriptionable, models.Model):
     """
     Model for a bill or anything that congress or people can vote on.

@@ -1,5 +1,6 @@
 from django.db import models
 from utils.mixins import UUIDable, Descriptionable
+from utils.behaviours import Contactable, Updatable
 
 class Genderable(models.Model):
     GENDER_CHOICES = (
@@ -11,28 +12,26 @@ class Genderable(models.Model):
 
     class Meta:
         abstract = True
-
-
-class Contactable(models.Model):
-    twitter = models.CharField(max_length=100, blank=True)
-    facebook = models.CharField(max_length=100, blank=True)
-    instagram = models.CharField(max_length=100, blank=True)
-    email_address = models.CharField(max_length=130, blank=True)
-    website = models.URLField(blank=True)
-    office_number = models.CharField(max_length=50, blank=True)
-
-    class Meta:
-        abstract = True
         
 
-class Event(Descriptionable, UUIDable, models.Model):
+class Event(Updatable, Descriptionable, UUIDable, models.Model):
     title = models.CharField(max_length=140, blank=True, null=True)
-    date = models.DateField(default='0001-01-01', blank=True)
+    date = models.DateField(default='0001-01-01', blank=True) #date the event happened
     people = models.ManyToManyField('Person', related_name='events')
     sources = models.ManyToManyField('Source')
 
     def __str__(self):
         return self.title
+
+
+class ListofEvents(Updatable, UUIDable, Descriptionable, models.Model):
+
+    events = models.ManyToManyField('Event')
+    title = models.CharField(max_length=140, blank=True)
+
+    def __str__(self):
+        return self.title
+
 
 class Scandal(UUIDable, Descriptionable, models.Model):
 
@@ -43,7 +42,7 @@ class Scandal(UUIDable, Descriptionable, models.Model):
         return self.title
 
 
-class Promise(Descriptionable, UUIDable, models.Model):
+class Promise(Updatable, Descriptionable, UUIDable, models.Model):
     PROMISE_CHOICES = (
     ('P', "Incumplida deliberadamente"),
     ('N', 'Incumplida por inacción'),
@@ -62,7 +61,7 @@ class Promise(Descriptionable, UUIDable, models.Model):
         return self.title
 
 
-class Person(Contactable, Descriptionable, UUIDable, Genderable, models.Model):
+class Person(Updatable, Contactable, Descriptionable, UUIDable, Genderable, models.Model):
     """
     Person Model
     Defines the attributes of a person
@@ -76,6 +75,7 @@ class Person(Contactable, Descriptionable, UUIDable, Genderable, models.Model):
     short_description = models.CharField(max_length=140, blank=True)
     family = models.ManyToManyField('Person', blank=True)
     scandals = models.ManyToManyField('Scandal', related_name='people', blank=True)
+    events_list = models.ManyToManyField('ListOfEvents')
 
     def __str__(self):
         return self.name
@@ -84,6 +84,8 @@ class Person(Contactable, Descriptionable, UUIDable, Genderable, models.Model):
 class PoliticalParty(Contactable, Descriptionable, UUIDable, models.Model):
     name = models.CharField(max_length=140)
     people = models.ManyToManyField('Person', blank=True, related_name='party')
+    events_list = models.ManyToManyField('padres.ListOfEvent')
+    events = models.ManyToManyField('padres.Event')
 
     def __str__(self):
         return self.name
@@ -124,12 +126,30 @@ class Believe(Descriptionable, UUIDable, models.Model):
     def __str__(self):
         return self.title
 
-class Source(UUIDable, models.Model):
-    url = models.URLField()
-    published_date = models.DateField(default='0001-01-01', blank=True)
+class Source(Updatable, UUIDable, models.Model):
+    url = models.URLField(unique=True)
+    available_date = models.DateField(default='0001-01-01', blank=True) #date the source made it available
 
 class StatementInformation(UUIDable, models.Model):
 
     exact_statement = models.TextField()
     evidence = models.ManyToManyField('padres.Event', blank=True) #list of events that verify or not the statement
-    date = models.DateField(default='0001-01-01', blank=True)
+    date = models.DateField(default='0001-01-01', blank=True) #date the statement was said
+    source = models.ManyToManyField('padres.Source')
+
+
+class Image(UUIDable, Updatable, models.Model):
+    url = models.URLField()
+    user = models.ForeignKey('users.CustomUser', related_name='uploaded_images')
+    people = models.ManyToManyField('padres.Person')
+    caption = models.CharField(max_length=100)
+
+    
+
+class Video(UUIDable, models.Model):
+    url = models.URLField()
+    user = models.ForeignKey('users.CustomUser', related_name='uploaded_videos')
+    people = models.ManyToManyField('padres.Person')
+    caption = models.CharField(max_length=100)
+
+

@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.twitter',
     'users',
-    'reversion'
 
 
 ]
@@ -77,19 +76,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # auth and allauth settings
 LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_QUERY_EMAIL = True
-SOCIALACCOUNT_PROVIDERS = {
-    'twitter': {
-        'SCOPE': ['email', 'publish_stream'],
-        'METHOD': 'oauth2'  # instead of 'oauth2'
-    },
-    'facebook': {
-        'SCOPE': ['email', 'publish_stream'],
-        'METHOD': 'oauth2'  # instead of 'oauth2'
-    }
-}
 
 #keep this constant to the correct Domain Name in Sites/Django Admin
-SITE_ID = 3
+SITE_ID = 5
 
 WSGI_APPLICATION = 'wsgi.application'
 

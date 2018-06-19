@@ -7,3 +7,5 @@ py-moneyed==0.7.0
 pytz==2017.3
 gunicorn==19.8.1
 django-allauth==0.36.0
+django-reversion==2.0.13
+

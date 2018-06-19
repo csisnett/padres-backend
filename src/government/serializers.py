@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Bill, PersonBill, LegalCase
+from .models import Bill, PersonBill, LegalCase, Institution
 
 class BillSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,3 +18,8 @@ class PersonBillSerializer(serializers.ModelSerializer):
     class Meta:
         model  = PersonBill
         fields = ('uuid', 'vote', 'reason', 'person', 'bill')
+
+class InstitutionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Institution
+        fields = ('name', 'uuid', 'long_description', 'events_list')

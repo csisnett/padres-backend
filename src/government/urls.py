@@ -1,12 +1,13 @@
 from django.conf.urls import url
 from government.views import (BillViewSet, LegalCaseViewSet,
-PersonBillViewSet)
+PersonBillViewSet, InstitutionViewSet)
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'bills', BillViewSet)
 router.register(r'legalcases', LegalCaseViewSet)
 router.register(r'personbills', PersonBillViewSet)
+router.register(r'institutions', InstitutionViewSet)
 
 urlpatterns = router.urls
 

@@ -1,7 +1,8 @@
-from government.serializers import BillSerializer, PersonBillSerializer, LegalCaseSerializer
-from government.models import Bill, PersonBill, LegalCase
+from government.serializers import BillSerializer, PersonBillSerializer, LegalCaseSerializer, InstitutionSerializer
+from government.models import Bill, PersonBill, LegalCase, Institution
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from utils.viewmixins import CreateOwnerMixin
 
 
 
@@ -28,7 +29,14 @@ class PersonBillViewSet(viewsets.ModelViewSet):
     serializer_class = PersonBillSerializer
     lookup_field = 'uuid'
 
+class InstitutionViewSet(CreateOwnerMixin, viewsets.ModelViewSet):
+    
+    queryset = Institution.objects.all()
+    serializer_class = InstitutionSerializer
+    lookup_field = 'uuid'
 
+    def create(self, request):
+        return self.add_ownership(request=request, serializer_class=self.serializer_class)
 
 
 """

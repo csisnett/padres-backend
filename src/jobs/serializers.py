@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CongressJob, GovernmentJob, PrivateJob, Institution
+from .models import CongressJob, GovernmentJob, PrivateJob
 
 class CongressJobSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,8 +15,3 @@ class PrivateJobSerializer(serializers.ModelSerializer):
     class Meta:
         model = PrivateJob
         fields = ('title', 'uuid', 'long_description', 'company')
-
-class InstitutionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Institution
-        fields = ('name', 'uuid', 'long_description')

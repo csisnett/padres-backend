@@ -7,7 +7,6 @@ router = DefaultRouter()
 router.register(r'congressjobs', CongressJobViewSet)
 router.register(r'governmentjobs', GovernmentJobViewSet)
 router.register(r'privatejobs', PrivateJobViewSet)
-router.register(r'institutions', InstitutionViewSet)
 
 urlpatterns = router.urls
 

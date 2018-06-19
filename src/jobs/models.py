@@ -1,6 +1,5 @@
 from django.db import models
 from utils.mixins import UUIDable, Descriptionable
-import reversion
 
 class Jobable(Descriptionable, UUIDable, models.Model):
     """
@@ -18,7 +17,7 @@ class Jobable(Descriptionable, UUIDable, models.Model):
     #institution = ...
     #wasted_money = ... models.ManyToManyField(Transactions)
     
-@reversion.register()
+
 class GovernmentJob(Jobable, models.Model):
     institution = models.ForeignKey('Institution', on_delete='PROTECT')
     people = models.ManyToManyField('padres.Person', blank=True, through='Person_GovernmentJob')
@@ -30,8 +29,8 @@ class PrivateJob(Jobable, models.Model):
     company = models.ForeignKey('transactions.Company', on_delete='PROTECT', blank=True, null=True)
     people = models.ManyToManyField('padres.Person', blank=True, through='Person_PrivateJob')
 
-class Institution(Descriptionable, UUIDable, models.Model):
-    name = models.CharField(max_length=130)
+
+
 
 class Person_GovernmentJob(models.Model):
     """
