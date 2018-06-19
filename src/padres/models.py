@@ -24,7 +24,7 @@ class Event(Updatable, Descriptionable, UUIDable, models.Model):
         return self.title
 
 
-class ListofEvents(Updatable, UUIDable, Descriptionable, models.Model):
+class EventList(Updatable, UUIDable, Descriptionable, models.Model):
 
     events = models.ManyToManyField('Event')
     title = models.CharField(max_length=140, blank=True)
@@ -75,7 +75,7 @@ class Person(Updatable, Contactable, Descriptionable, UUIDable, Genderable, mode
     short_description = models.CharField(max_length=140, blank=True)
     family = models.ManyToManyField('Person', blank=True)
     scandals = models.ManyToManyField('Scandal', related_name='people', blank=True)
-    events_list = models.ManyToManyField('ListOfEvents')
+    event_list = models.ManyToManyField('EventList')
 
     def __str__(self):
         return self.name
@@ -84,7 +84,7 @@ class Person(Updatable, Contactable, Descriptionable, UUIDable, Genderable, mode
 class PoliticalParty(Contactable, Descriptionable, UUIDable, models.Model):
     name = models.CharField(max_length=140)
     people = models.ManyToManyField('Person', blank=True, related_name='party')
-    events_list = models.ManyToManyField('padres.ListOfEvent')
+    event_list = models.ManyToManyField('padres.EventList')
     events = models.ManyToManyField('padres.Event')
 
     def __str__(self):
@@ -135,21 +135,25 @@ class StatementInformation(UUIDable, models.Model):
     exact_statement = models.TextField()
     evidence = models.ManyToManyField('padres.Event', blank=True) #list of events that verify or not the statement
     date = models.DateField(default='0001-01-01', blank=True) #date the statement was said
-    source = models.ManyToManyField('padres.Source')
 
 
 class Image(UUIDable, Updatable, models.Model):
     url = models.URLField()
-    user = models.ForeignKey('users.CustomUser', related_name='uploaded_images')
+    user = models.ForeignKey('users.CustomUser', related_name='uploaded_images', on_delete='PROTECT')
     people = models.ManyToManyField('padres.Person')
     caption = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.caption
 
     
 
 class Video(UUIDable, models.Model):
     url = models.URLField()
-    user = models.ForeignKey('users.CustomUser', related_name='uploaded_videos')
+    user = models.ForeignKey('users.CustomUser', related_name='uploaded_videos', on_delete='PROTECT')
     people = models.ManyToManyField('padres.Person')
     caption = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.caption
 

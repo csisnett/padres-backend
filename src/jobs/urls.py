@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from jobs.views import (CongressJobViewSet, GovernmentJobViewSet,
-InstitutionViewSet, PrivateJobViewSet)
+PrivateJobViewSet)
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()

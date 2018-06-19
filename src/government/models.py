@@ -4,7 +4,7 @@ from utils.mixins import UUIDable, Descriptionable
 
 class Institution(Descriptionable, UUIDable, models.Model):
     name = models.CharField(max_length=130)
-    events_list = models.ManyToManyField('padres.ListOfEvent')
+    event_list = models.ManyToManyField('padres.EventList')
     events = models.ManyToManyField('padres.Event')
 
 

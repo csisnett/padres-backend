@@ -20,12 +20,6 @@ INSTALLED_APPS = [
     'padres',
     'rest_framework',
     'djmoney',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.twitter',
     'users',
 
 
@@ -69,16 +63,12 @@ AUTHENTICATION_BACKENDS = [
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.contrib.auth.context_processors.auth",
-    "allauth.account.context_processors.account",
-    "allauth.socialaccount.context_processors.socialaccount",
 )
  
-# auth and allauth settings
-LOGIN_REDIRECT_URL = '/'
-SOCIALACCOUNT_QUERY_EMAIL = True
+
 
 #keep this constant to the correct Domain Name in Sites/Django Admin
-SITE_ID = 5
+SITE_ID = 1
 
 WSGI_APPLICATION = 'wsgi.application'
 

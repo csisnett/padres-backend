@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 
 class Contactable(models.Model):
     twitter = models.CharField(max_length=100, blank=True)

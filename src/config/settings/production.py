@@ -1,5 +1,6 @@
 from .base import *
 from .settings_secret_prod import *
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 DEBUG = False
 
@@ -7,7 +8,7 @@ ALLOWED_HOSTS = ['web']
 
 REST_FRAMEWORK = {
     
-    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [IsAuthenticatedOrReadOnly],
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 

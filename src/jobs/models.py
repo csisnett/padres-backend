@@ -19,7 +19,7 @@ class Jobable(Descriptionable, UUIDable, models.Model):
     
 
 class GovernmentJob(Jobable, models.Model):
-    institution = models.ForeignKey('Institution', on_delete='PROTECT')
+    institution = models.ForeignKey('government.Institution', on_delete='PROTECT')
     people = models.ManyToManyField('padres.Person', blank=True, through='Person_GovernmentJob')
 
 class CongressJob(Jobable, models.Model):
