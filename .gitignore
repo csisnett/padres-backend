@@ -5,3 +5,4 @@ settings_secret_prod.py
 *.env
 /postgresimage
 .vscode
+features-log
