@@ -16,15 +16,9 @@ services:
     build: .
     container_name: dg01
     command: bash -c "python manage.py makemigrations && python manage.py migrate &&  gunicorn wsgi:application -b 0.0.0.0:8000"
-    depends_on:
-      - db
+    env_file: ./production.env
     volumes:
       - ./src:/src
       - /static:/static
     expose:
       - "8000"
-    
-  db:
-    image: pspadres:latest
-    container_name: ps01
-    env_file: ./secret.env

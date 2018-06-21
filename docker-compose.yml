@@ -18,6 +18,7 @@ services:
     command:  bash -c "python manage.py runserver"
     depends_on:
       - db
+    env_file: ./development.env
     volumes:
       - ./src:/src
       - /static:/static
