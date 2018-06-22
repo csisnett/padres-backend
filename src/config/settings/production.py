@@ -1,5 +1,4 @@
 from .base import *
-from .settings_secret_prod import *
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 import os
 
