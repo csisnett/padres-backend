@@ -15,7 +15,7 @@ services:
     image: padres-backend
     build: .
     container_name: dg01
-    command:  bash -c "python manage.py runserver"
+    command:  bash -c "gunicorn wsgi:application -b 0.0.0.0:8000"
     depends_on:
       - db
     env_file: ./development.env

@@ -6,7 +6,7 @@ class Contactable(models.Model):
     facebook = models.CharField(max_length=100, blank=True)
     instagram = models.CharField(max_length=100, blank=True)
     email_address = models.CharField(max_length=130, blank=True)
-    website = models.Field(blank=True)
+    website = models.URLField(blank=True)
     office_number = models.CharField(max_length=50, blank=True)
 
     class Meta:

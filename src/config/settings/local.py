@@ -5,7 +5,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['web', '127.0.0.1']
+ALLOWED_HOSTS = ['web', '127.0.0.1', 'localhost']
 
 REST_FRAMEWORK = {
     
@@ -45,5 +45,5 @@ DATABASES = {
 #SECURE_CONTENT_TYPE_NOSNIFF = True
 #SECURE_BROWSER_XSS_FILTER = True
 #SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
 #X_FRAME_OPTIONS = 'DENY'
